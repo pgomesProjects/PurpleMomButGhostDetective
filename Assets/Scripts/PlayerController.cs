@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 3;
-    public List<Item> inventory;
+    [SerializeField] private List<Item> inventory;
+    
 
     private PlayerControlSystem playerControls;
     private Vector3 movement;
@@ -59,8 +60,28 @@ public class PlayerController : MonoBehaviour
             if (movement.x > 1)
                 movement.x = 1;
         }
-        Debug.Log(movement.x);
 
         transform.position += movement * speed * Time.deltaTime;
+    }
+
+    public List<Item> GetInventory() { return inventory; }
+
+    public void AddToInventory(Item itemData)
+    {
+        bool duplicateItem = false;
+        foreach(var i in inventory)
+        {
+            if(i.ID == itemData.ID)
+            {
+                i.quantity ++;
+                duplicateItem = true;
+                break;
+            }
+        }
+
+        if (!duplicateItem)
+        {
+            inventory.Add(itemData);
+        }
     }
 }
