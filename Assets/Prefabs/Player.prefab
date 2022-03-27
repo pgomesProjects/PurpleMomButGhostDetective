@@ -96,7 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14777a954f8d6f43a6a3244acfba57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
+  inventory:
+  - ID: 0
+    name: 
+    quantity: 0
+    itemImage: {fileID: 0}
+    combineItemIDs: 
 --- !u!114 &277413033349522584
 MonoBehaviour:
   m_ObjectHideFlags: 0

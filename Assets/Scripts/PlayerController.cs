@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 3;
+    public List<Item> inventory;
+
     private PlayerControlSystem playerControls;
     private Vector3 movement;
     private bool canMove, cutsceneActive;
