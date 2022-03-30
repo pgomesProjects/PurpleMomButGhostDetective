@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InventoryController : MonoBehaviour
 {
     private PlayerControlSystem playerControls;
+    private PlayerController playerController;
     [SerializeField] private GameObject inventoryUI;
     private bool isInventoryActive;
     private PlayerController player;
@@ -15,6 +16,7 @@ public class InventoryController : MonoBehaviour
     {
         playerControls = new PlayerControlSystem();
         playerControls.Player.Inventory.performed += _ => ToggleInventory();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     // Start is called before the first frame update
@@ -44,8 +46,11 @@ public class InventoryController : MonoBehaviour
     {
         isInventoryActive = !isInventoryActive;
         inventoryUI.SetActive(isInventoryActive);
+        playerController.inventoryActive = isInventoryActive;
         if (isInventoryActive)
+        {
             DisplayInventory();
+        }
     }//end of ToggleInventory
 
     private void DisplayInventory()

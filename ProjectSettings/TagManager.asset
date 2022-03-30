@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CutsceneUI
+  - Sprite
+  - DialogBox
+  - DialogText
+  - NameBox
+  - Controls
+  - Continue
   layers:
   - Default
   - TransparentFX
