@@ -86,4 +86,28 @@ public class PlayerController : MonoBehaviour
             inventory.Add(itemData);
         }
     }
+
+    public void RemoveFromInventory(int itemID)
+    {
+        bool deleteItem = true;
+        int counter = 0;
+        foreach (var i in inventory)
+        {
+            if (i.ID == itemID)
+            {
+                if(i.quantity > 1)
+                {
+                    i.quantity--;
+                    deleteItem = false;
+                }
+                break;
+            }
+            counter++;
+        }
+
+        if (deleteItem)
+        {
+            inventory.RemoveAt(counter);
+        }
+    }
 }

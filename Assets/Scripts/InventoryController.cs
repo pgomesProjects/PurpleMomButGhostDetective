@@ -12,11 +12,22 @@ public class InventoryController : MonoBehaviour
     private PlayerController player;
     [SerializeField] private Image[] imageGrid;
 
+    [HideInInspector]
+    public bool isDragging, isHidden, hasSuccessfulInteraction;
+    [HideInInspector]
+    public int activeInventoryID, activeSiblingIndex = -1;
+
+    public static InventoryController main;
+
     private void Awake()
     {
+        main = this;
         playerControls = new PlayerControlSystem();
         playerControls.Player.Inventory.performed += _ => ToggleInventory();
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        isDragging = false;
+        isHidden = false;
+        hasSuccessfulInteraction = false;
     }
 
     // Start is called before the first frame update
@@ -60,7 +71,37 @@ public class InventoryController : MonoBehaviour
         {
             imageGrid[counter].sprite = i.itemImage;
             imageGrid[counter].color = i.imageColor;
+            imageGrid[counter].gameObject.GetComponentInParent<GridPieceEvents>().SetInventoryID(i.ID);
             counter++;
+        }
+    }
+
+    private void ClearInventoryDisplay()
+    {
+        foreach (var i in imageGrid)
+        {
+            i.sprite = null;
+            i.color = new Color(0, 0, 0, 0);
+        }
+    }
+
+    public void CheckSuccessfulInteraction()
+    {
+        if (hasSuccessfulInteraction)
+        {
+            //Get rid of item from inventory
+            playerController.RemoveFromInventory(activeInventoryID);
+            ClearInventoryDisplay();
+            //Make sure the inventory is inactive
+            isInventoryActive = false;
+            hasSuccessfulInteraction = false;
+        }
+
+        inventoryUI.SetActive(isInventoryActive);
+        playerController.inventoryActive = isInventoryActive;
+        if (isInventoryActive)
+        {
+            DisplayInventory();
         }
     }
 }
