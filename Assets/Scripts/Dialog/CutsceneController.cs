@@ -17,13 +17,10 @@ public class CutsceneController : MonoBehaviour
 
     public static CutsceneController main;
 
-    private PlayerController playerController;
-
     private void Awake()
     {
         main = this;
         isDialogActive = false;
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         playerControls = new PlayerControlSystem();
         playerControls.UI.Click.performed += _ =>
         {
@@ -41,7 +38,7 @@ public class CutsceneController : MonoBehaviour
                 //If all of the text has been shown, call the event for when the text is complete
                 else
                 {
-                    playerController.cutsceneActive = false;
+                    GameManager.instance.isCutsceneActive = false;
                     dialogEvent.OnEventComplete();
                 }
             }
@@ -58,7 +55,7 @@ public class CutsceneController : MonoBehaviour
     {
         //Start text event
         isDialogActive = true;
-        playerController.cutsceneActive = true;
+        GameManager.instance.isCutsceneActive = true;
         dialogEvent.OnDialogStart();
         dialogEvent.CheckEvents(ref textWriterSingle);
     }

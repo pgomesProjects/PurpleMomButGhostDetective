@@ -25,14 +25,18 @@ public class PickupController : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log(itemData.name + " Collected!");
-        player.AddToInventory(itemData);
-        Destroy(gameObject);
+        if (!GameManager.instance.isCutsceneActive)
+        {
+            Debug.Log(itemData.name + " Collected!");
+            player.AddToInventory(itemData);
+            Destroy(gameObject);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        highlight.gameObject.SetActive(true);
+        if(!GameManager.instance.isCutsceneActive)
+            highlight.gameObject.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)

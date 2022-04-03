@@ -15,7 +15,7 @@ public class InventoryController : MonoBehaviour
     [HideInInspector]
     public bool isDragging, isHidden, hasSuccessfulInteraction;
     [HideInInspector]
-    public int activeInventoryID, activeSiblingIndex = -1;
+    public int activeInventoryID, activeSiblingIndex;
 
     public static InventoryController main;
 
@@ -34,6 +34,8 @@ public class InventoryController : MonoBehaviour
     void Start()
     {
         isInventoryActive = false;
+        activeInventoryID = -1;
+        activeSiblingIndex = -1;
         player = FindObjectOfType<PlayerController>();
     }
 
@@ -61,6 +63,10 @@ public class InventoryController : MonoBehaviour
         if (isInventoryActive)
         {
             DisplayInventory();
+        }
+        else
+        {
+            activeInventoryID = -1;
         }
     }//end of ToggleInventory
 

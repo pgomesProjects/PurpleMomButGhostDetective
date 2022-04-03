@@ -6,33 +6,37 @@ using UnityEngine.UI;
 public abstract class CutsceneEvent : DialogEvent
 {
     [Header("Cutscene Objects")]
-    [SerializeField] protected GameObject cutsceneUI;
-    [SerializeField] protected Image dialogSprite;
-    [SerializeField] protected GameObject nameBox;
+    [SerializeField][Tooltip("The container that holds all cutscene UI.")]
+    protected GameObject cutsceneUI;
+    [SerializeField][Tooltip("The object that displays the sprite.")]
+    protected Image dialogSprite;
+    [SerializeField][Tooltip("The object that displays the Name Box.")]
+    protected GameObject nameBox;
 
-    [SerializeField] protected Sprite[] spriteImages;
+    [SerializeField][Tooltip("The images for the sprites in the cutscene.\nNote: The cutscene loads the first sprite given on start.")]
+    protected Sprite[] spriteImages;
 
-    protected void ShowNameBox()
+    public void ShowNameBox()
     {
         nameBox.SetActive(true);
     }
 
-    protected void HideNameBox()
+    public void HideNameBox()
     {
         nameBox.SetActive(false);
     }
 
-    protected void ChangeSprite(int index)
+    public void ChangeSprite(int index)
     {
         dialogSprite.sprite = spriteImages[index];
     }
 
-    protected void HideSprite()
+    public void HideSprite()
     {
         dialogSprite.color = new Color(1, 1, 1, 0);
     }
 
-    protected void ShowSprite()
+    public void ShowSprite()
     {
         dialogSprite.color = new Color(1, 1, 1, 1);
     }

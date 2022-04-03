@@ -4,8 +4,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestEvent : CutsceneEvent
+public class CutsceneDialogHandler : CutsceneEvent
 {
+    private CustomEvent cutsceneCustomEvents;
+
+    private void Awake()
+    {
+        cutsceneCustomEvents = GetComponent<CustomEvent>();
+    }
+
     public override void OnDialogStart()
     {
         cutsceneUI.SetActive(true);
@@ -15,19 +22,13 @@ public class TestEvent : CutsceneEvent
     public override void CheckEvents(ref TextWriter.TextWriterSingle textWriterObj)
     {
         string message = dialogLines[currentLine];
-        currentLine++;
         continueObject.SetActive(false);
 
-        switch (currentLine)
-        {
-            case 2:
-                HideSprite();
-                textWriterObj = TextWriter.AddWriter_Static(HideNameBox, messageText, message, .05f, true, true, OnTextComplete);
-                break;
-            default:
-                textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, .05f, true, true, OnTextComplete);
-                break;
-        }
+        if (cutsceneCustomEvents != null)
+            cutsceneCustomEvents.CheckForCustomEvent(currentLine);
+
+        textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, .05f, true, true, OnTextComplete);
+        currentLine++;
     }
 
     private void OnTextComplete()

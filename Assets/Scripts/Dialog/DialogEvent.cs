@@ -10,9 +10,12 @@ abstract public class DialogEvent : MonoBehaviour
     protected int currentLine;
 
     [Header("Dialog Objects")]
-    [SerializeField] protected string[] dialogLines;
-    [SerializeField] protected TextMeshProUGUI messageText;
-    [SerializeField] protected GameObject continueObject;
+    [SerializeField] [Tooltip("The lines of dialog shown in order.")]
+    protected string[] dialogLines;
+    [SerializeField] [Tooltip("The object that holds the message text.")]
+    protected TextMeshProUGUI messageText;
+    [SerializeField] [Tooltip("The object that holds whatever will be used to tell the player to continue the dialog.")]
+    protected GameObject continueObject;
 
     public abstract void CheckEvents(ref TextWriter.TextWriterSingle textWriterObj);
 

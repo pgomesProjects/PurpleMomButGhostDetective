@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private PlayerControlSystem playerControls;
     private Vector3 movement;
     [HideInInspector]
-    public bool canMove, inventoryActive, cutsceneActive;
+    public bool canMove, inventoryActive;
     private void Awake()
     {
         playerControls = new PlayerControlSystem();
@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     {
         canMove = false;
         inventoryActive = false;
-        cutsceneActive = false;
     }
 
     private void OnEnable()
@@ -41,7 +40,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove && !inventoryActive && !cutsceneActive)
+        if (canMove && !inventoryActive && !GameManager.instance.isCutsceneActive)
             GetPlayerMovementInput();
     }
 
