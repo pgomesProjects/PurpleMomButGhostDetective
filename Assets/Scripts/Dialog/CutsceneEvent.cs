@@ -35,11 +35,6 @@ public abstract class CutsceneEvent : DialogEvent
         nameBox.SetActive(false);
     }
 
-    public void ToggleDialogBox()
-    {
-
-    }
-
     public void ChangeSprite(int index)
     {
         dialogSprite.sprite = spriteImages[index];

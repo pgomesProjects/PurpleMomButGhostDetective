@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool isCutsceneActive;
+    public bool isInventoryActive;
 
     private void Awake()
     {
@@ -22,5 +23,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         isCutsceneActive = false;
+        isInventoryActive = false;
     }
 }

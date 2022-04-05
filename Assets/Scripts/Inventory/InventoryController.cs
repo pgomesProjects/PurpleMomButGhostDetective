@@ -59,7 +59,7 @@ public class InventoryController : MonoBehaviour
     {
         isInventoryActive = !isInventoryActive;
         inventoryUI.SetActive(isInventoryActive);
-        playerController.inventoryActive = isInventoryActive;
+        GameManager.instance.isInventoryActive = isInventoryActive;
         if (isInventoryActive)
         {
             DisplayInventory();
@@ -104,7 +104,7 @@ public class InventoryController : MonoBehaviour
         }
 
         inventoryUI.SetActive(isInventoryActive);
-        playerController.inventoryActive = isInventoryActive;
+        GameManager.instance.isInventoryActive = isInventoryActive;
         if (isInventoryActive)
         {
             DisplayInventory();
