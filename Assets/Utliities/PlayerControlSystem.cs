@@ -80,6 +80,15 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=1)"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleDialogBox"",
+                    ""type"": ""Button"",
+                    ""id"": ""433762b2-3085-4a79-bec4-8bed913adc45"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -333,6 +342,17 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""UseItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1415cee3-ce7e-4611-95f0-1296c56a7a64"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ToggleDialogBox"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -926,6 +946,7 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
         m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_UseItem = m_Player.FindAction("UseItem", throwIfNotFound: true);
+        m_Player_ToggleDialogBox = m_Player.FindAction("ToggleDialogBox", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1003,6 +1024,7 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Click;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_UseItem;
+    private readonly InputAction m_Player_ToggleDialogBox;
     public struct PlayerActions
     {
         private @PlayerControlSystem m_Wrapper;
@@ -1013,6 +1035,7 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
         public InputAction @Click => m_Wrapper.m_Player_Click;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @UseItem => m_Wrapper.m_Player_UseItem;
+        public InputAction @ToggleDialogBox => m_Wrapper.m_Player_ToggleDialogBox;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1040,6 +1063,9 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
                 @UseItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
                 @UseItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
                 @UseItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
+                @ToggleDialogBox.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleDialogBox;
+                @ToggleDialogBox.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleDialogBox;
+                @ToggleDialogBox.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleDialogBox;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1062,6 +1088,9 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
                 @UseItem.started += instance.OnUseItem;
                 @UseItem.performed += instance.OnUseItem;
                 @UseItem.canceled += instance.OnUseItem;
+                @ToggleDialogBox.started += instance.OnToggleDialogBox;
+                @ToggleDialogBox.performed += instance.OnToggleDialogBox;
+                @ToggleDialogBox.canceled += instance.OnToggleDialogBox;
             }
         }
     }
@@ -1224,6 +1253,7 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
         void OnClick(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnUseItem(InputAction.CallbackContext context);
+        void OnToggleDialogBox(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

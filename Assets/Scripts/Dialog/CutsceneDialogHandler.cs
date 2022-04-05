@@ -17,17 +17,24 @@ public class CutsceneDialogHandler : CutsceneEvent
     {
         cutsceneUI.SetActive(true);
         ChangeSprite(0);
+        SetNameBoxText("Clementine");
     }
 
     public override void CheckEvents(ref TextWriter.TextWriterSingle textWriterObj)
     {
         string message = dialogLines[currentLine];
-        continueObject.SetActive(false);
 
+        //Check for custom events if present
         if (cutsceneCustomEvents != null)
             cutsceneCustomEvents.CheckForCustomEvent(currentLine);
 
-        textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, .05f, true, true, OnTextComplete);
+        //Add to history log
+        if (nameBox.activeInHierarchy)
+            DialogController.main.AddToLog(nameText.text + ":<br>");
+        DialogController.main.AddToLog(message + "<br><br>");
+        continueObject.SetActive(false);
+
+        textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, 1/textSpeed, true, true, OnTextComplete);
         currentLine++;
     }
 

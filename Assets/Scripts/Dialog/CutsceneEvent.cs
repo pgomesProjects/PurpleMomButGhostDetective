@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class CutsceneEvent : DialogEvent
 {
@@ -12,6 +13,9 @@ public abstract class CutsceneEvent : DialogEvent
     protected Image dialogSprite;
     [SerializeField][Tooltip("The object that displays the Name Box.")]
     protected GameObject nameBox;
+    [SerializeField]
+    [Tooltip("The text box for the name box.")]
+    protected TextMeshProUGUI nameText;
 
     [SerializeField][Tooltip("The images for the sprites in the cutscene.\nNote: The cutscene loads the first sprite given on start.")]
     protected Sprite[] spriteImages;
@@ -21,9 +25,19 @@ public abstract class CutsceneEvent : DialogEvent
         nameBox.SetActive(true);
     }
 
+    public void SetNameBoxText(string name)
+    {
+        nameText.text = name;
+    }
+
     public void HideNameBox()
     {
         nameBox.SetActive(false);
+    }
+
+    public void ToggleDialogBox()
+    {
+
     }
 
     public void ChangeSprite(int index)

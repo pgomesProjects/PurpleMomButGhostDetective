@@ -24,9 +24,13 @@ public class CutsceneController : MonoBehaviour
         playerControls = new PlayerControlSystem();
         playerControls.UI.Click.performed += _ =>
         {
-            //If the dialog is activated
-            if (isDialogActive)
+            //If the dialog is activated and not in the control / history menu
+            if (isDialogActive && !DialogController.main.historyLogActive && !DialogController.main.isControlButtonHovered)
             {
+                //If the dialog box is hidden, unhide it
+                if(!DialogController.main.isDialogShown)
+                    DialogController.main.ToggleDialog();
+
                 //If there is text being written already, write everything
                 if (textWriterSingle != null && textWriterSingle.IsActive())
                     textWriterSingle.WriteAllAndDestroy();
@@ -43,6 +47,7 @@ public class CutsceneController : MonoBehaviour
                 }
             }
         };
+        playerControls.Player.ToggleDialogBox.performed += _ => DialogController.main.ToggleDialog();
     }
     private void Start()
     {
