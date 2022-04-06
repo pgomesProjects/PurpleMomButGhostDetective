@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class TitlescreenController : MonoBehaviour
 {
+    [SerializeField] private string levelToStart;
     [SerializeField] private GameObject[] menuStateObjects;
     enum MenuState { TITLESCREEN, SETTINGS };
     private MenuState currentMenu = MenuState.TITLESCREEN;
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(levelToStart);
     }
 
     public void SettingsToggle()

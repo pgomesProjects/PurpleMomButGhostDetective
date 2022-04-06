@@ -23,11 +23,11 @@ public class DialogController : MonoBehaviour
     private void Awake()
     {
         main = this;
+        historyLog = new List<string>();
     }
 
     private void Start()
     {
-        historyLog = new List<string>();
         isDialogShown = true;
         historyLogActive = false;
         isControlButtonHovered = false;

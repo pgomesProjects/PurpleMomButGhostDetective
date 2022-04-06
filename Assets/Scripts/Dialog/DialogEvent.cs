@@ -15,6 +15,7 @@ abstract public class DialogEvent : MonoBehaviour
     [SerializeField]
     [Tooltip("The number of characters to display per second.")]
     protected float textSpeed = 20;
+    protected float currentTextSpeed;
     [SerializeField] [Tooltip("The object that holds the message text.")]
     protected TextMeshProUGUI messageText;
     [SerializeField] [Tooltip("The object that holds whatever will be used to tell the player to continue the dialog.")]

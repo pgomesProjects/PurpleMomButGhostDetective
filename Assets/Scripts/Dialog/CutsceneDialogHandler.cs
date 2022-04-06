@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class CutsceneDialogHandler : CutsceneEvent
 {
     private CustomEvent cutsceneCustomEvents;
+    [HideInInspector] public bool canAutoAdvance = false;
+    [HideInInspector] public bool forceSkip = false;
+    [SerializeField] private float skipTextMultiplier = 1.5f;
 
     private void Awake()
     {
@@ -15,6 +18,7 @@ public class CutsceneDialogHandler : CutsceneEvent
 
     public override void OnDialogStart()
     {
+        currentTextSpeed = textSpeed;
         cutsceneUI.SetActive(true);
         ChangeSprite(0);
         SetNameBoxText("Clementine");
@@ -34,13 +38,34 @@ public class CutsceneDialogHandler : CutsceneEvent
         DialogController.main.AddToLog(message + "<br><br>");
         continueObject.SetActive(false);
 
-        textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, 1/textSpeed, true, true, OnTextComplete);
+        textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, 1 / currentTextSpeed, true, true, OnTextComplete);
         currentLine++;
+    }
+
+    private void SkipText()
+    {
+        StartCoroutine(CutsceneController.main.ForceAdvance());
+    }
+
+    public void SetForceSkip(bool skip)
+    {
+        forceSkip = skip;
+        if (forceSkip)
+            currentTextSpeed = textSpeed * skipTextMultiplier;
+        else
+            currentTextSpeed = textSpeed;
     }
 
     private void OnTextComplete()
     {
-        continueObject.SetActive(true);
+        if (forceSkip)
+        {
+            SkipText();
+        }
+        else
+        {
+            continueObject.SetActive(true);
+        }
     }
 
     public override void OnEventComplete()
