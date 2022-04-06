@@ -69,5 +69,31 @@ public class DialogController : MonoBehaviour
     {
         historyObject.SetActive(false);
         historyLogActive = false;
+
+        //If the text is complete through skip or auto, make it advance
+        if (GameManager.instance.isCutsceneActive && FindObjectOfType<CutsceneDialogHandler>().textCompleted)
+        {
+            FindObjectOfType<CutsceneDialogHandler>().OnTextComplete();
+        }
+    }
+
+    public void ToggleSkip()
+    {
+        CutsceneController.main.isSkipping = !CutsceneController.main.isSkipping;
+        if (CutsceneController.main.isSkipping)
+        {
+            CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed * CutsceneController.main.skipSpeedMultiplier;
+            CutsceneController.main.CheckForAdvance();
+        }
+        else
+        {
+            CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed;
+            FindObjectOfType<CutsceneDialogHandler>().CheckForceSkip();
+        }
+    }
+
+    public void ToggleAuto()
+    {
+        CutsceneController.main.isAuto = !CutsceneController.main.isAuto;
     }
 }

@@ -10,21 +10,38 @@ public class ControlButtonMouseEvents : MonoBehaviour, IPointerEnterHandler, IPo
     private Color defaultTextColor;
     [SerializeField] private Color hoverTextColor = new Color(1, 1, 1, 1);
 
+    [HideInInspector]
+    public bool isHighlighted;
+
     private void Start()
     {
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
         defaultTextColor = buttonText.color;
+        isHighlighted = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         DialogController.main.isControlButtonHovered = true;
-        buttonText.color = hoverTextColor;
+
+        if (!isHighlighted)
+        {
+            buttonText.color = hoverTextColor;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         DialogController.main.isControlButtonHovered = false;
-        buttonText.color = defaultTextColor;
+        if (!isHighlighted)
+        {
+            buttonText.color = defaultTextColor;
+        }
+    }
+
+    public void ToggleHighlight()
+    {
+        isHighlighted = !isHighlighted;
+        buttonText.color = hoverTextColor;
     }
 }

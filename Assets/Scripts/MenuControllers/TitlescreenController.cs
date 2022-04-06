@@ -20,9 +20,13 @@ public class TitlescreenController : MonoBehaviour
         {
             case MenuState.TITLESCREEN:
                 currentMenu = MenuState.SETTINGS;
+                menuStateObjects[(int)MenuState.TITLESCREEN].SetActive(false);
+                menuStateObjects[(int)MenuState.SETTINGS].SetActive(true);
                 break;
             case MenuState.SETTINGS:
                 currentMenu = MenuState.TITLESCREEN;
+                menuStateObjects[(int)MenuState.TITLESCREEN].SetActive(true);
+                menuStateObjects[(int)MenuState.SETTINGS].SetActive(false);
                 break;
         }
     }

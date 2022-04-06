@@ -18,19 +18,31 @@ public class CutsceneController : MonoBehaviour
 
     public static CutsceneController main;
 
+    public bool isSkipping = false;
+    public bool isAuto = false;
+
+    public float textSpeed = 30;
+    public float skipSpeedMultiplier = 2.5f;
+    [HideInInspector]
+    public float currentTextSpeed;
+
     private void Awake()
     {
         main = this;
         isDialogActive = false;
         playerControls = new PlayerControlSystem();
-        playerControls.UI.Click.performed += _ => AdvanceText();
+        playerControls.UI.Click.performed += _ => {
+            //Advance text if they are not selecting a button
+            if(!DialogController.main.isControlButtonHovered)
+                AdvanceText();
+        };
         playerControls.Player.ToggleDialogBox.performed += _ => DialogController.main.ToggleDialog();
     }
 
     public void AdvanceText()
     {
         //If the dialog is activated and not in the control / history menu
-        if (isDialogActive && !DialogController.main.historyLogActive && !DialogController.main.isControlButtonHovered)
+        if (isDialogActive && !DialogController.main.historyLogActive)
         {
             //If the dialog box is hidden, unhide it
             if (!DialogController.main.isDialogShown)
@@ -57,6 +69,21 @@ public class CutsceneController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         AdvanceText();
+    }
+
+    public IEnumerator AutoAdvance()
+    {
+        yield return new WaitForSeconds(0.5f);
+        AdvanceText();
+    }
+
+    public void CheckForAdvance()
+    {
+        //If there is text being written already, write everything
+        if (textWriterSingle != null && textWriterSingle.IsActive())
+            textWriterSingle.WriteAllAndDestroy();
+
+        StartCoroutine(ForceAdvance());
     }
 
     private void Start()
