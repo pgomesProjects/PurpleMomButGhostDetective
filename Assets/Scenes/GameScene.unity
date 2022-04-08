@@ -1449,6 +1449,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogEvent: {fileID: 0}
   playOnStart: 0
+  isSkipping: 0
+  isAuto: 0
+  textSpeed: 30
+  skipSpeedMultiplier: 2.5
+  currentTextSpeed: 0
 --- !u!114 &372366862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2972,6 +2977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverTextColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+  isHighlighted: 0
 --- !u!1 &789934821
 GameObject:
   m_ObjectHideFlags: 0
@@ -3611,7 +3617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1001414536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5117,6 +5123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverTextColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+  isHighlighted: 0
 --- !u!1 &1536138145
 GameObject:
   m_ObjectHideFlags: 0
@@ -6313,8 +6320,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dac4db40c789cd649accb5cca575b8dd, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6466,6 +6473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverTextColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+  isHighlighted: 0
 --- !u!1 &2121999742
 GameObject:
   m_ObjectHideFlags: 0
