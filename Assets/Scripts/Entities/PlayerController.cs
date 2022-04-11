@@ -69,20 +69,35 @@ public class PlayerController : MonoBehaviour
 
     public void AddToInventory(Item itemData)
     {
-        bool duplicateItem = false;
-        foreach(var i in inventory)
+        if(itemData.name != "Notebook" && GameManager.instance.playerHasInventory)
         {
-            if(i.ID == itemData.ID)
+            bool duplicateItem = false;
+            foreach (var i in inventory)
             {
-                i.quantity ++;
-                duplicateItem = true;
-                break;
+                //If the player already has the item in their inventory, add to their quantity
+                if (i.ID == itemData.ID)
+                {
+                    i.quantity++;
+                    duplicateItem = true;
+                    break;
+                }
             }
-        }
 
-        if (!duplicateItem)
+            //If the current object is not a duplicate of an existing one, add a new item to the inventory
+            if (!duplicateItem)
+            {
+                inventory.Add(itemData);
+            }
+
+            //Show the pickup text UI
+            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name));
+        }
+        else if(!GameManager.instance.playerHasInventory)
         {
-            inventory.Add(itemData);
+            //If the player collected the notebook, do not add it to the inventory, but let them access the inventory
+            GameManager.instance.playerHasInventory = true;
+            //Show the pickup text UI
+            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name));
         }
     }
 

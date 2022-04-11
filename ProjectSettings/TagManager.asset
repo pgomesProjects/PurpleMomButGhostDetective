@@ -51,6 +51,9 @@ TagManager:
   - name: Background
     uniqueID: 2575822397
     locked: 0
+  - name: PickupLayer
+    uniqueID: 509477439
+    locked: 0
   - name: Foreground
     uniqueID: 3786512835
     locked: 0

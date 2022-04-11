@@ -27,20 +27,31 @@ public class PickupController : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         if (!GameManager.instance.isCutsceneActive)
         {
-            Debug.Log(itemData.name + " Collected!");
-            player.AddToInventory(itemData);
-            Destroy(gameObject);
+            if (GameManager.instance.playerHasInventory || itemData.name == "Notebook")
+            {
+                Debug.Log(itemData.name + " Collected!");
+                player.AddToInventory(itemData);
+                Destroy(gameObject);
+            }
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!GameManager.instance.isCutsceneActive)
-            highlight.gameObject.SetActive(true);
+        if (!GameManager.instance.isCutsceneActive)
+        {
+            if(GameManager.instance.playerHasInventory || itemData.name == "Notebook")
+            {
+                highlight.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        highlight.gameObject.SetActive(false);
+        if (GameManager.instance.playerHasInventory || itemData.name == "Notebook")
+        {
+            highlight.gameObject.SetActive(false);
+        }
     }
 }

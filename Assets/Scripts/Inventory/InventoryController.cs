@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventoryController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class InventoryController : MonoBehaviour
     private bool isInventoryActive;
     private PlayerController player;
     [SerializeField] private Image[] imageGrid;
+    [SerializeField] private GameObject pickupIndicatorObject;
+    [SerializeField] private TextMeshProUGUI pickupText;
 
     [HideInInspector]
     public bool isDragging, isHidden, hasSuccessfulInteraction;
@@ -57,16 +60,19 @@ public class InventoryController : MonoBehaviour
 
     private void ToggleInventory()
     {
-        isInventoryActive = !isInventoryActive;
-        inventoryUI.SetActive(isInventoryActive);
-        GameManager.instance.isInventoryActive = isInventoryActive;
-        if (isInventoryActive)
+        if (GameManager.instance.playerHasInventory && !GameManager.instance.isCutsceneActive)
         {
-            DisplayInventory();
-        }
-        else
-        {
-            activeInventoryID = -1;
+            isInventoryActive = !isInventoryActive;
+            inventoryUI.SetActive(isInventoryActive);
+            GameManager.instance.isInventoryActive = isInventoryActive;
+            if (isInventoryActive)
+            {
+                DisplayInventory();
+            }
+            else
+            {
+                activeInventoryID = -1;
+            }
         }
     }//end of ToggleInventory
 
@@ -109,5 +115,19 @@ public class InventoryController : MonoBehaviour
         {
             DisplayInventory();
         }
+    }
+    public IEnumerator ShowPickupText(string item)
+    {
+        if(item == "Notebook")
+        {
+            pickupText.text = "Picked Up Notebook.<br><size=40>You may now press E to access your inventory.</size>";
+        }
+        else
+        {
+            pickupText.text = "Picked up " + item + ".";
+        }
+        pickupIndicatorObject.SetActive(true);
+        yield return new WaitForSeconds(2);
+        pickupIndicatorObject.SetActive(false);
     }
 }
