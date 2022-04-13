@@ -25,6 +25,7 @@ public class CutsceneController : MonoBehaviour
     public float skipSpeedMultiplier = 2.5f;
     [HideInInspector]
     public float currentTextSpeed;
+    public Animator spriteAnimator;
 
     private void Awake()
     {
@@ -32,8 +33,15 @@ public class CutsceneController : MonoBehaviour
         isDialogActive = false;
         playerControls = new PlayerControlSystem();
         playerControls.UI.Click.performed += _ => {
+            //If cutscene dialog is advanced, play mouse click SFX
+            if (isDialogActive && !DialogController.main.isControlButtonHovered)
+            {
+                if (FindObjectOfType<AudioManager>() != null)
+                    FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+            }
+
             //Advance text if they are not selecting a button
-            if(!DialogController.main.isControlButtonHovered)
+            if (!DialogController.main.isControlButtonHovered)
                 AdvanceText();
         };
         playerControls.Player.ToggleDialogBox.performed += _ => DialogController.main.ToggleDialog();
@@ -59,6 +67,7 @@ public class CutsceneController : MonoBehaviour
             //If all of the text has been shown, call the event for when the text is complete
             else
             {
+                isDialogActive = false;
                 GameManager.instance.isCutsceneActive = false;
                 dialogEvent.OnEventComplete();
             }

@@ -65,6 +65,10 @@ public class GridPieceEvents : MonoBehaviour,
     {
         if (gridItemImage.color.a != 0)
         {
+            //Mouse click SFX
+            if (FindObjectOfType<AudioManager>() != null)
+                FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
             isSelected = true;
             InventoryController.main.isDragging = isSelected;
             gridImage.transform.SetSiblingIndex(1);

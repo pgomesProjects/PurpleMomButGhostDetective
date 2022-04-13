@@ -33,7 +33,7 @@ public class PauseController : MonoBehaviour
 
     public void PauseToggle()
     {
-        if(!GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
+        if (!GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
         {
             isPaused = !isPaused;
             pauseUI.SetActive(isPaused);
@@ -41,18 +41,45 @@ public class PauseController : MonoBehaviour
             if (isPaused)
             {
                 Time.timeScale = 0.0f;
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Pause("Morgue");
+                }
             }
             //Resume
             else
             {
                 Time.timeScale = 1.0f;
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Resume("Morgue");
+                }
             }
         }
+    }
+
+    public void Resume()
+    {
+        if (FindObjectOfType<AudioManager>() != null)
+        {
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+            FindObjectOfType<AudioManager>().Resume("Morgue");
+        }
+
+        isPaused = false;
+        pauseUI.SetActive(isPaused);
+
+        Time.timeScale = 1.0f;
     }
 
     public void ReturnToMain()
     {
         Time.timeScale = 1.0f;
+        if (FindObjectOfType<AudioManager>() != null)
+        {
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+            FindObjectOfType<AudioManager>().Stop("Morgue");
+        }
         SceneManager.LoadScene("Titlescreen");
     }
 }

@@ -90,14 +90,14 @@ public class PlayerController : MonoBehaviour
             }
 
             //Show the pickup text UI
-            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name));
+            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name, 1.05f));
         }
         else if(!GameManager.instance.playerHasInventory)
         {
             //If the player collected the notebook, do not add it to the inventory, but let them access the inventory
             GameManager.instance.playerHasInventory = true;
             //Show the pickup text UI
-            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name));
+            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name, 5));
         }
     }
 

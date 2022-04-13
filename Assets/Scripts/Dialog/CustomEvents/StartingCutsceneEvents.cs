@@ -51,6 +51,9 @@ public class StartingCutsceneEvents : CustomEvent
                 HideBlackScreen();
                 cutsceneDialogHandler.ShowSprite();
                 break;
+            case 29:
+                cutsceneDialogHandler.SpriteJump();
+                break;
         }
     }
 
@@ -62,5 +65,14 @@ public class StartingCutsceneEvents : CustomEvent
     public void HideBlackScreen()
     {
         blackScreen.SetActive(false);
+    }
+
+    public override void CustomOnEventComplete()
+    {
+        if (FindObjectOfType<AudioManager>() != null)
+        {
+            FindObjectOfType<AudioManager>().Play("Morgue", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
+        }
+        StartCoroutine(TutorialController.main.ShowTutorialBox("Hold Left Click On The Mouse And Drag Left Or Right To Move Around The Scene.", 1, 1, 5));
     }
 }

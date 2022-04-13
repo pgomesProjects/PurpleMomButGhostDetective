@@ -9,6 +9,7 @@ public class ControlButtonMouseEvents : MonoBehaviour, IPointerEnterHandler, IPo
     private TextMeshProUGUI buttonText;
     private Color defaultTextColor;
     [SerializeField] private Color hoverTextColor = new Color(1, 1, 1, 1);
+    [SerializeField] private Color selectedTextColor = new Color(1, 1, 1, 1);
 
     [HideInInspector]
     public bool isHighlighted;
@@ -42,6 +43,6 @@ public class ControlButtonMouseEvents : MonoBehaviour, IPointerEnterHandler, IPo
     public void ToggleHighlight()
     {
         isHighlighted = !isHighlighted;
-        buttonText.color = hoverTextColor;
+        buttonText.color = selectedTextColor;
     }
 }

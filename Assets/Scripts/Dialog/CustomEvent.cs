@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class CustomEvent : MonoBehaviour
 {
     public abstract void CheckForCustomEvent(int indexNumber);
+    public abstract void CustomOnEventComplete();
 }

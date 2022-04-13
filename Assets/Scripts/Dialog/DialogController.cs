@@ -60,6 +60,9 @@ public class DialogController : MonoBehaviour
 
     public void ShowHistoryLog()
     {
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
         historyObject.SetActive(true);
         historyLogActive = true;
         DisplayLog();
@@ -75,25 +78,38 @@ public class DialogController : MonoBehaviour
         {
             FindObjectOfType<CutsceneDialogHandler>().OnTextComplete();
         }
+        else
+        {
+            if (FindObjectOfType<AudioManager>() != null)
+                FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+        }
     }
 
     public void ToggleSkip()
     {
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
         CutsceneController.main.isSkipping = !CutsceneController.main.isSkipping;
         if (CutsceneController.main.isSkipping)
         {
             CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed * CutsceneController.main.skipSpeedMultiplier;
+            CutsceneController.main.spriteAnimator.SetFloat("Multiplier", 10);
             CutsceneController.main.CheckForAdvance();
         }
         else
         {
             CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed;
+            CutsceneController.main.spriteAnimator.SetFloat("Multiplier", 1);
             FindObjectOfType<CutsceneDialogHandler>().CheckForceSkip();
         }
     }
 
     public void ToggleAuto()
     {
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
         CutsceneController.main.isAuto = !CutsceneController.main.isAuto;
     }
 }
