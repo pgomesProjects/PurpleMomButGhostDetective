@@ -22,4 +22,8 @@ public class IntroEvents : CustomEvent
         }
     }
 
+    public override void CustomOnEventComplete()
+    {
+        
+    }
 }

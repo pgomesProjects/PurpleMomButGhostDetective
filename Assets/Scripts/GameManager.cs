@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public bool isInventoryActive;
     public bool playerHasInventory;
 
+    public enum Tutorial { USEINVENTORY };
+    public bool[] tutorialsShown;
+
     private void Awake()
     {
         if (instance == null)

@@ -81,6 +81,13 @@ public class InventoryController : MonoBehaviour
         int counter = 0;
         foreach(var i in player.GetInventory())
         {
+            //If the player has the key in their inventory for the first time, display the tutorial
+            if (i.name == "Door Keychain" && !GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY])
+            {
+                GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY] = true;
+                StartCoroutine(TutorialController.main.ShowTutorialBox("To Use An Item, Drag It Out Of The Inventory And Onto An Area You Would Like To Use It On.", 0.5f, 0.5f, 5));
+            }
+
             imageGrid[counter].sprite = i.itemImage;
             imageGrid[counter].color = i.imageColor;
             imageGrid[counter].gameObject.GetComponentInParent<GridPieceEvents>().SetInventoryID(i.ID);
@@ -116,18 +123,18 @@ public class InventoryController : MonoBehaviour
             DisplayInventory();
         }
     }
-    public IEnumerator ShowPickupText(string item)
+    public IEnumerator ShowPickupText(string item, float showSeconds)
     {
         if(item == "Notebook")
         {
-            pickupText.text = "Picked Up Notebook.<br><size=40>You may now press E to access your inventory.</size>";
+            pickupText.text = "Picked Up Notebook.<br><size=40>You may now collect items. Press E to access your inventory.</size>";
         }
         else
         {
             pickupText.text = "Picked up " + item + ".";
         }
         pickupIndicatorObject.SetActive(true);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(showSeconds);
         pickupIndicatorObject.SetActive(false);
     }
 }

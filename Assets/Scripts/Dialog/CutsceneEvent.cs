@@ -13,8 +13,7 @@ public abstract class CutsceneEvent : DialogEvent
     protected Image dialogSprite;
     [SerializeField][Tooltip("The object that displays the Name Box.")]
     protected GameObject nameBox;
-    [SerializeField]
-    [Tooltip("The text box for the name box.")]
+    [SerializeField][Tooltip("The text box for the name box.")]
     protected TextMeshProUGUI nameText;
 
     [SerializeField][Tooltip("The images for the sprites in the cutscene.\nNote: The cutscene loads the first sprite given on start.")]
@@ -48,5 +47,10 @@ public abstract class CutsceneEvent : DialogEvent
     public void ShowSprite()
     {
         dialogSprite.color = new Color(1, 1, 1, 1);
+    }
+
+    public void SpriteJump()
+    {
+        CutsceneController.main.spriteAnimator.SetTrigger("Jump");
     }
 }

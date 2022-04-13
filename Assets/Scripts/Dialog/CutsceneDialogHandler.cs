@@ -111,5 +111,9 @@ public class CutsceneDialogHandler : CutsceneEvent
         //Hide the dialog box and continue object
         cutsceneUI.SetActive(false);
         continueObject.SetActive(false);
+
+        //Check for custom events if present
+        if (cutsceneCustomEvents != null)
+            cutsceneCustomEvents.CustomOnEventComplete();
     }
 }

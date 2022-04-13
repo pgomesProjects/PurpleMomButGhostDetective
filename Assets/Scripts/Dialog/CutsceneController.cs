@@ -25,6 +25,7 @@ public class CutsceneController : MonoBehaviour
     public float skipSpeedMultiplier = 2.5f;
     [HideInInspector]
     public float currentTextSpeed;
+    public Animator spriteAnimator;
 
     private void Awake()
     {
@@ -59,6 +60,7 @@ public class CutsceneController : MonoBehaviour
             //If all of the text has been shown, call the event for when the text is complete
             else
             {
+                isDialogActive = false;
                 GameManager.instance.isCutsceneActive = false;
                 dialogEvent.OnEventComplete();
             }
