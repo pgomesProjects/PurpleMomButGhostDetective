@@ -29,7 +29,13 @@ public class PickupController : MonoBehaviour, IPointerEnterHandler, IPointerExi
         {
             if (GameManager.instance.playerHasInventory || itemData.name == "Notebook")
             {
+                //Play click SFX
+                if (FindObjectOfType<AudioManager>() != null)
+                    FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
                 Debug.Log(itemData.name + " Collected!");
+
+                //Add item to player inventory and destroy the in-game object
                 player.AddToInventory(itemData);
                 Destroy(gameObject);
             }

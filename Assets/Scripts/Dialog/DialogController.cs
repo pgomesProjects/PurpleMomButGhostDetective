@@ -60,6 +60,9 @@ public class DialogController : MonoBehaviour
 
     public void ShowHistoryLog()
     {
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
         historyObject.SetActive(true);
         historyLogActive = true;
         DisplayLog();
@@ -75,10 +78,18 @@ public class DialogController : MonoBehaviour
         {
             FindObjectOfType<CutsceneDialogHandler>().OnTextComplete();
         }
+        else
+        {
+            if (FindObjectOfType<AudioManager>() != null)
+                FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+        }
     }
 
     public void ToggleSkip()
     {
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
         CutsceneController.main.isSkipping = !CutsceneController.main.isSkipping;
         if (CutsceneController.main.isSkipping)
         {
@@ -96,6 +107,9 @@ public class DialogController : MonoBehaviour
 
     public void ToggleAuto()
     {
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
         CutsceneController.main.isAuto = !CutsceneController.main.isAuto;
     }
 }

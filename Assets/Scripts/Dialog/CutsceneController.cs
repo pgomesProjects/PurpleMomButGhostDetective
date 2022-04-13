@@ -33,8 +33,15 @@ public class CutsceneController : MonoBehaviour
         isDialogActive = false;
         playerControls = new PlayerControlSystem();
         playerControls.UI.Click.performed += _ => {
+            //If cutscene dialog is advanced, play mouse click SFX
+            if (isDialogActive && !DialogController.main.isControlButtonHovered)
+            {
+                if (FindObjectOfType<AudioManager>() != null)
+                    FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+            }
+
             //Advance text if they are not selecting a button
-            if(!DialogController.main.isControlButtonHovered)
+            if (!DialogController.main.isControlButtonHovered)
                 AdvanceText();
         };
         playerControls.Player.ToggleDialogBox.performed += _ => DialogController.main.ToggleDialog();

@@ -3358,7 +3358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3597,7 +3597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec8cbded8f1314f819eb769ab224eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverTextColor: {r: 0.26477396, g: 0.29344097, b: 0.6603774, a: 1}
+  hoverTextColor: {r: 0.9254902, g: 0.17254902, b: 0.8980392, a: 1}
+  selectedTextColor: {r: 0.9433962, g: 0.3426486, b: 0.9214941, a: 0.627451}
   isHighlighted: 0
 --- !u!1 &789934821
 GameObject:
@@ -4642,7 +4643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -6516,7 +6517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec8cbded8f1314f819eb769ab224eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverTextColor: {r: 0.26477396, g: 0.29344097, b: 0.6603774, a: 1}
+  hoverTextColor: {r: 0.9254902, g: 0.17254902, b: 0.8980392, a: 1}
+  selectedTextColor: {r: 0.9433962, g: 0.3426486, b: 0.9214941, a: 0.627451}
   isHighlighted: 0
 --- !u!1 &1536138145
 GameObject:
@@ -6838,7 +6840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -7729,7 +7731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -7762,7 +7764,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 372366864}
         m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
-        m_MethodName: PauseToggle
+        m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8586,7 +8588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec8cbded8f1314f819eb769ab224eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverTextColor: {r: 0.26477396, g: 0.29344097, b: 0.6603774, a: 1}
+  hoverTextColor: {r: 0.9254902, g: 0.17254902, b: 0.8980392, a: 1}
+  selectedTextColor: {r: 0.9433962, g: 0.3426486, b: 0.9214941, a: 0.627451}
   isHighlighted: 0
 --- !u!1 &2121999742
 GameObject:
@@ -8640,7 +8643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}

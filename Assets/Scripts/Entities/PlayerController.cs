@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //Show the pickup text UI
-            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name, 3));
+            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name, 1.05f));
         }
         else if(!GameManager.instance.playerHasInventory)
         {
