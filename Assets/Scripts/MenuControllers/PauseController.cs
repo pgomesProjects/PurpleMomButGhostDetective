@@ -80,6 +80,12 @@ public class PauseController : MonoBehaviour
             FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
             FindObjectOfType<AudioManager>().Stop("Morgue");
         }
-        SceneManager.LoadScene("Titlescreen");
+
+        string levelMain = "Titlescreen";
+
+        if (LevelFader.instance != null)
+            LevelFader.instance.FadeToLevel(levelMain);
+        else
+            SceneManager.LoadScene(levelMain);
     }
 }

@@ -43,6 +43,10 @@ public class ControlButtonMouseEvents : MonoBehaviour, IPointerEnterHandler, IPo
     public void ToggleHighlight()
     {
         isHighlighted = !isHighlighted;
-        buttonText.color = selectedTextColor;
+
+        if(isHighlighted)
+            buttonText.color = selectedTextColor;
+        else
+            buttonText.color = defaultTextColor;
     }
 }

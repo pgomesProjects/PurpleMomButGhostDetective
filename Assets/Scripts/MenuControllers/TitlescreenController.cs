@@ -26,7 +26,10 @@ public class TitlescreenController : MonoBehaviour
             FindObjectOfType<AudioManager>().Stop("Titlescreen");
         }
 
-        SceneManager.LoadScene(levelToStart);
+        if (LevelFader.instance != null)
+            LevelFader.instance.FadeToLevel(levelToStart);
+        else
+            SceneManager.LoadScene(levelToStart);
     }
 
     public void SettingsToggle()

@@ -11,6 +11,8 @@ public class CutsceneDialogHandler : CutsceneEvent
     [HideInInspector] public bool forceSkip = false;
     [HideInInspector] public bool textCompleted = false;
     [SerializeField] private float skipTextMultiplier = 1.5f;
+    private float currentTime;
+    private float timeToReadText;
 
     private void Awake()
     {
@@ -29,6 +31,10 @@ public class CutsceneDialogHandler : CutsceneEvent
     {
         string message = dialogLines[currentLine];
         textCompleted = false;
+
+        //Get the text to read the text (based on text count and text speed)
+        timeToReadText = message.Length / CutsceneController.main.currentTextSpeed;
+        currentTime = Time.time;
 
         //Check for custom events if present
         if (cutsceneCustomEvents != null)
@@ -55,7 +61,8 @@ public class CutsceneDialogHandler : CutsceneEvent
 
     private void AutoAdvanceText()
     {
-        StartCoroutine(CutsceneController.main.AutoAdvance());
+        Debug.Log("Time To Read Text: " + timeToReadText + " seconds");
+        StartCoroutine(CutsceneController.main.AutoAdvance(timeToReadText));
     }
 
     public void SetForceSkip(bool skip)
@@ -98,15 +105,21 @@ public class CutsceneDialogHandler : CutsceneEvent
     public override void OnEventComplete()
     {
         //Reset values
-        CutsceneController.main.isSkipping = false;
         ControlButtonMouseEvents[] allButtons = FindObjectsOfType<ControlButtonMouseEvents>();
 
-        //Turn off all buttons that are currently highlighted
+        //Turn off all buttons that are currently highlighted or triggered
         foreach(var i in allButtons)
         {
             if (i.isHighlighted)
                 i.ToggleHighlight();
         }
+
+        //If skipping or auto, toggle them off
+        if (CutsceneController.main.isSkipping)
+            DialogController.main.ToggleSkip();
+
+        if (CutsceneController.main.isAuto)
+            DialogController.main.ToggleAuto();
 
         //Hide the dialog box and continue object
         cutsceneUI.SetActive(false);

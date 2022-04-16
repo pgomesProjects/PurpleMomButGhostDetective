@@ -16,9 +16,9 @@ public class MorgueManager : MonoBehaviour
             GameManager.instance.playerHasInventory = false;
             GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY] = false;
         }
+
         //Give the dialog event to the cutscene controller and start the cutscene
         CutsceneController.main.dialogEvent = startingCutscene;
         CutsceneController.main.TriggerDialogEvent();
     }
-
 }
