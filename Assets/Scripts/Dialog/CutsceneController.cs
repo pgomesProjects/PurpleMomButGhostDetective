@@ -27,6 +27,8 @@ public class CutsceneController : MonoBehaviour
     public float currentTextSpeed;
     public Animator spriteAnimator;
 
+    private float savedWalkMultiplier;
+
     private void Awake()
     {
         main = this;
@@ -69,6 +71,12 @@ public class CutsceneController : MonoBehaviour
             {
                 isDialogActive = false;
                 GameManager.instance.isCutsceneActive = false;
+                //Make the player idle move
+                if(PlayerController.main != null)
+                {
+                    PlayerController.main.GetCharacterAnimator().SetFloat("IdleMultiplier", 1);
+                    PlayerController.main.GetCharacterAnimator().SetFloat("WalkMultiplier", savedWalkMultiplier);
+                }
                 dialogEvent.OnEventComplete();
             }
         }
@@ -113,6 +121,16 @@ public class CutsceneController : MonoBehaviour
         //Start text event
         isDialogActive = true;
         GameManager.instance.isCutsceneActive = true;
+
+        //Make the player idle and freeze them
+        if(PlayerController.main != null)
+        {
+            savedWalkMultiplier = PlayerController.main.GetCharacterAnimator().GetFloat("WalkMultiplier");
+            PlayerController.main.GetCharacterAnimator().SetFloat("SpeedX", -1);
+            PlayerController.main.GetCharacterAnimator().SetFloat("IdleMultiplier", 0);
+            PlayerController.main.GetCharacterAnimator().SetFloat("WalkMultiplier", 0);
+        }
+
         dialogEvent.OnDialogStart();
         dialogEvent.CheckEvents(ref textWriterSingle);
     }

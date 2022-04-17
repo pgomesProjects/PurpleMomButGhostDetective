@@ -36,6 +36,8 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.SetNameBoxText("Clementine");
                 break;
             case 8:
+                cutsceneDialogHandler.ChangeStill(0);
+                cutsceneDialogHandler.ShowStill();
                 cutsceneDialogHandler.HideNameBox();
                 break;
             case 11:
@@ -48,6 +50,9 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.SetForceSkip(false);
                 break;
             case 26:
+                cutsceneDialogHandler.HideStill();
+                break;
+            case 27:
                 HideBlackScreen();
                 cutsceneDialogHandler.ShowSprite();
                 break;

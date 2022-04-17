@@ -11,11 +11,18 @@ public class PlayerController : MonoBehaviour
 
     private PlayerControlSystem playerControls;
     private Vector3 movement;
+
+    [SerializeField] private Animator charAnimator;
+    private bool isLeft;
+
     [HideInInspector]
     public bool canMove;
 
+    public static PlayerController main;
+
     private void Awake()
     {
+        main = this;
         playerControls = new PlayerControlSystem();
         playerControls.Player.Click.performed += _ => canMove = true;
         playerControls.Player.Click.canceled += _ => canMove = false;
@@ -25,6 +32,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         canMove = false;
+        isLeft = true;
     }
 
     private void OnEnable()
@@ -42,6 +50,14 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
             GetPlayerMovementInput();
+
+        CheckPlayerAnimation();
+    }
+
+    private void FixedUpdate()
+    {
+        if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
+            MovePlayer();
     }
 
     private void GetPlayerMovementInput()
@@ -61,8 +77,59 @@ public class PlayerController : MonoBehaviour
             if (movement.x > 1)
                 movement.x = 1;
         }
+    }
 
-        transform.position += movement * speed * Time.deltaTime;
+    private void MovePlayer()
+    {
+        //transform.position += movement * speed * Time.deltaTime;
+        GetComponent<Rigidbody>().velocity = movement * speed;
+    }
+
+    private void CheckPlayerAnimation()
+    {
+        //If the player is not moving and not in a cutscene, set the multiplier to 1
+        if (!GameManager.instance.isCutsceneActive)
+        {
+            if (!canMove)
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                charAnimator.SetFloat("SpeedX", -1);
+            }
+            else
+            {
+                //Set the speed and multiplier of the player animator
+                charAnimator.SetFloat("SpeedX", Mathf.Abs(movement.x));
+                charAnimator.SetFloat("WalkMultiplier", Mathf.Abs(movement.x));
+            }
+        }
+
+
+        if(movement.x < 0 && !isLeft)
+        {
+            isLeft = true;
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (movement.x > 0 && isLeft)
+        {
+            isLeft = false;
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+    }
+
+    public void PlayStepSFX01()
+    {
+        if (FindObjectOfType<AudioManager>() != null)
+        {
+            FindObjectOfType<AudioManager>().Play("StepLeft", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+        }
+    }
+
+    public void PlayStepSFX02()
+    {
+        if (FindObjectOfType<AudioManager>() != null)
+        {
+            FindObjectOfType<AudioManager>().Play("StepRight", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+        }
     }
 
     public List<Item> GetInventory() { return inventory; }
@@ -124,4 +191,6 @@ public class PlayerController : MonoBehaviour
             inventory.RemoveAt(counter);
         }
     }
+
+    public Animator GetCharacterAnimator() { return charAnimator; }
 }

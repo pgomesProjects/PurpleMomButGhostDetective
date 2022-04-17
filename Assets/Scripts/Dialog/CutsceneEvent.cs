@@ -11,6 +11,9 @@ public abstract class CutsceneEvent : DialogEvent
     protected GameObject cutsceneUI;
     [SerializeField][Tooltip("The object that displays the sprite.")]
     protected Image dialogSprite;
+    [SerializeField]
+    [Tooltip("The object that displays the still images.")]
+    protected GameObject stillSprite;
     [SerializeField][Tooltip("The object that displays the Name Box.")]
     protected GameObject nameBox;
     [SerializeField][Tooltip("The text box for the name box.")]
@@ -18,6 +21,10 @@ public abstract class CutsceneEvent : DialogEvent
 
     [SerializeField][Tooltip("The images for the sprites in the cutscene.\nNote: The cutscene loads the first sprite given on start.")]
     protected Sprite[] spriteImages;
+
+    [SerializeField]
+    [Tooltip("The images for the stills in the cutscene.")]
+    protected Sprite[] stillImages;
 
     public void ShowNameBox()
     {
@@ -47,6 +54,24 @@ public abstract class CutsceneEvent : DialogEvent
     public void ShowSprite()
     {
         dialogSprite.color = new Color(1, 1, 1, 1);
+    }
+
+    public void HideStill()
+    {
+        stillSprite.SetActive(false);
+    }
+
+    public void ShowStill()
+    {
+        stillSprite.SetActive(true);
+    }
+
+    public void ChangeStill(int index)
+    {
+        if(index >= 0 && index < spriteImages.Length)
+        {
+            stillSprite.GetComponent<Image>().sprite = stillImages[index];
+        }
     }
 
     public void SpriteJump()

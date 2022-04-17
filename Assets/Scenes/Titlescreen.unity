@@ -1150,6 +1150,16 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: StepLeft
+    clip: {fileID: 8300000, guid: 0a9ff0b06af85964f932dda616716b99, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: StepRight
+    clip: {fileID: 8300000, guid: 186ccceca7746a847a2efe5fa316ab3b, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &722285816
 GameObject:
   m_ObjectHideFlags: 0

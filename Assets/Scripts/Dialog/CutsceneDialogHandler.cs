@@ -11,7 +11,6 @@ public class CutsceneDialogHandler : CutsceneEvent
     [HideInInspector] public bool forceSkip = false;
     [HideInInspector] public bool textCompleted = false;
     [SerializeField] private float skipTextMultiplier = 1.5f;
-    private float currentTime;
     private float timeToReadText;
 
     private void Awake()
@@ -34,7 +33,6 @@ public class CutsceneDialogHandler : CutsceneEvent
 
         //Get the text to read the text (based on text count and text speed)
         timeToReadText = message.Length / CutsceneController.main.currentTextSpeed;
-        currentTime = Time.time;
 
         //Check for custom events if present
         if (cutsceneCustomEvents != null)
