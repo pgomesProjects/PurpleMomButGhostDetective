@@ -932,6 +932,18 @@ PrefabInstance:
       propertyPath: cutsceneAnimator
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6532388979902648405, guid: 3b29e1d4e0a99fc41ba9b9dcb8667158, type: 3}
+      propertyPath: dialogLines.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532388979902648405, guid: 3b29e1d4e0a99fc41ba9b9dcb8667158, type: 3}
+      propertyPath: dialogLines.Array.data[0]
+      value: What is this?
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532388979902648405, guid: 3b29e1d4e0a99fc41ba9b9dcb8667158, type: 3}
+      propertyPath: dialogLines.Array.data[1]
+      value: Looks like some sort of coroner's report...
+      objectReference: {fileID: 0}
     - target: {fileID: 6532388979902648407, guid: 3b29e1d4e0a99fc41ba9b9dcb8667158, type: 3}
       propertyPath: m_RootOrder
       value: 2
