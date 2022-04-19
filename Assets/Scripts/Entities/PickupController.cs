@@ -37,7 +37,15 @@ public class PickupController : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
                 //Add item to player inventory and destroy the in-game object
                 player.AddToInventory(itemData);
-                Destroy(gameObject);
+
+                if(GetComponent<CutsceneOnPickup>() != null)
+                {
+                    GetComponent<CutsceneOnPickup>().OnPickup();
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

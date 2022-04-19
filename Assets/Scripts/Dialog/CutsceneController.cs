@@ -62,15 +62,18 @@ public class CutsceneController : MonoBehaviour
             if (textWriterSingle != null && textWriterSingle.IsActive())
                 textWriterSingle.WriteAllAndDestroy();
 
+            //If there is no text and there are still seen lines left, check for events needed to display the text
+            else if (dialogEvent.HasSeenCutscene() && dialogEvent.GetCurrentLine() < dialogEvent.GetSeenDialogLength())
+                dialogEvent.CheckEvents(ref textWriterSingle);
+
             //If there is no text and there are still lines left, check for events needed to display the text
-            else if (dialogEvent.GetCurrentLine() < dialogEvent.GetDialogLength())
+            else if (!dialogEvent.HasSeenCutscene() && dialogEvent.GetCurrentLine() < dialogEvent.GetDialogLength())
                 dialogEvent.CheckEvents(ref textWriterSingle);
 
             //If all of the text has been shown, call the event for when the text is complete
             else
             {
                 isDialogActive = false;
-                GameManager.instance.isCutsceneActive = false;
                 //Make the player idle move
                 if(PlayerController.main != null)
                 {
@@ -78,8 +81,17 @@ public class CutsceneController : MonoBehaviour
                     PlayerController.main.GetCharacterAnimator().SetFloat("WalkMultiplier", savedWalkMultiplier);
                 }
                 dialogEvent.OnEventComplete();
+
+                //end cutscene with a slight delay to prevent from clicking on something in the background on the same frame
+                StartCoroutine(EndCutscene(0.25f));
             }
         }
+    }
+
+    public IEnumerator EndCutscene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.instance.isCutsceneActive = false;
     }
 
     public IEnumerator ForceAdvance()
@@ -125,6 +137,7 @@ public class CutsceneController : MonoBehaviour
         //Make the player idle and freeze them
         if(PlayerController.main != null)
         {
+            Debug.Log("Stop Player");
             savedWalkMultiplier = PlayerController.main.GetCharacterAnimator().GetFloat("WalkMultiplier");
             PlayerController.main.GetCharacterAnimator().SetFloat("SpeedX", -1);
             PlayerController.main.GetCharacterAnimator().SetFloat("IdleMultiplier", 0);

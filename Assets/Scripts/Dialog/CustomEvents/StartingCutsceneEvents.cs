@@ -41,16 +41,15 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.HideNameBox();
                 break;
             case 11:
+                cutsceneDialogHandler.ChangeStill(1);
                 cutsceneDialogHandler.ShowNameBox();
                 break;
             case 12:
                 cutsceneDialogHandler.SetForceSkip(true);
                 break;
             case 23:
-                cutsceneDialogHandler.SetForceSkip(false);
-                break;
-            case 26:
                 cutsceneDialogHandler.HideStill();
+                cutsceneDialogHandler.SetForceSkip(false);
                 break;
             case 27:
                 HideBlackScreen();

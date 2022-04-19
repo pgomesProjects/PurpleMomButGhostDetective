@@ -28,7 +28,32 @@ public class CutsceneDialogHandler : CutsceneEvent
 
     public override void CheckEvents(ref TextWriter.TextWriterSingle textWriterObj)
     {
-        string message = dialogLines[currentLine];
+        string message = "";
+        if (hasSeen)
+        {
+            message = hasSeenLines[currentLine];
+            //If the lines have not been written into the history log, write them in
+            if (!hasSeenWrittenInHistory)
+            {
+                //Add to history log
+                if (nameBox.activeInHierarchy)
+                    DialogController.main.AddToLog(nameText.text + ":<br>");
+                DialogController.main.AddToLog(message + "<br><br>");
+            }
+        }
+        else
+        {
+            message = dialogLines[currentLine];
+            //If the lines have not been written into the history log, write them in
+            if (!dialogWrittenInHistory)
+            {
+                //Add to history log
+                if (nameBox.activeInHierarchy)
+                    DialogController.main.AddToLog(nameText.text + ":<br>");
+                DialogController.main.AddToLog(message + "<br><br>");
+            }
+        }
+
         textCompleted = false;
 
         //Get the text to read the text (based on text count and text speed)
@@ -38,10 +63,6 @@ public class CutsceneDialogHandler : CutsceneEvent
         if (cutsceneCustomEvents != null)
             cutsceneCustomEvents.CheckForCustomEvent(currentLine);
 
-        //Add to history log
-        if (nameBox.activeInHierarchy)
-            DialogController.main.AddToLog(nameText.text + ":<br>");
-        DialogController.main.AddToLog(message + "<br><br>");
         continueObject.SetActive(false);
 
         if (CutsceneController.main.isSkipping)
@@ -122,6 +143,21 @@ public class CutsceneDialogHandler : CutsceneEvent
         //Hide the dialog box and continue object
         cutsceneUI.SetActive(false);
         continueObject.SetActive(false);
+
+        //If the scene has already been viewed, mark it read so it doesn't get written into the history
+        if (hasSeen)
+        {
+            hasSeenWrittenInHistory = true;
+        }
+        //If not the cutscene has just been viewed
+        else
+        {
+            hasSeen = true;
+            dialogWrittenInHistory = true;
+        }
+
+        //Reset lines
+        currentLine = 0;
 
         //Check for custom events if present
         if (cutsceneCustomEvents != null)

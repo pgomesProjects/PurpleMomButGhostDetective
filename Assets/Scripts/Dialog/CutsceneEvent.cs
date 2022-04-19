@@ -68,7 +68,7 @@ public abstract class CutsceneEvent : DialogEvent
 
     public void ChangeStill(int index)
     {
-        if(index >= 0 && index < spriteImages.Length)
+        if(index >= 0 && index < stillImages.Length)
         {
             stillSprite.GetComponent<Image>().sprite = stillImages[index];
         }

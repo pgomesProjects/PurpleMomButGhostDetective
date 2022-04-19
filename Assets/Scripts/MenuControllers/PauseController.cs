@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class PauseController : MonoBehaviour
 {
     private PlayerControlSystem playerControls;
-    private bool isPaused;
+    internal bool isPaused;
     [SerializeField] private GameObject pauseUI;
+
+    public static PauseController main;
 
     private void Awake()
     {
+        main = this;
         playerControls = new PlayerControlSystem();
         playerControls.Player.Pause.performed += _ => PauseToggle();
     }

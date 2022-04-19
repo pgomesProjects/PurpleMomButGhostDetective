@@ -87,32 +87,35 @@ public class PlayerController : MonoBehaviour
 
     private void CheckPlayerAnimation()
     {
-        //If the player is not moving and not in a cutscene, set the multiplier to 1
-        if (!GameManager.instance.isCutsceneActive)
+        //Animate the sprite when the game is not paused
+        if(PauseController.main != null && !PauseController.main.isPaused)
         {
-            if (!canMove)
+            //If the player is not moving and not in a cutscene, set the multiplier to 1
+            if (!GameManager.instance.isCutsceneActive)
             {
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-                charAnimator.SetFloat("SpeedX", -1);
+                if (!canMove)
+                {
+                    GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    charAnimator.SetFloat("SpeedX", -1);
+                }
+                else
+                {
+                    //Set the speed and multiplier of the player animator
+                    charAnimator.SetFloat("SpeedX", Mathf.Abs(movement.x));
+                    charAnimator.SetFloat("WalkMultiplier", Mathf.Abs(movement.x));
+                }
             }
-            else
+
+            if (movement.x < 0 && !isLeft)
             {
-                //Set the speed and multiplier of the player animator
-                charAnimator.SetFloat("SpeedX", Mathf.Abs(movement.x));
-                charAnimator.SetFloat("WalkMultiplier", Mathf.Abs(movement.x));
+                isLeft = true;
+                GetComponent<SpriteRenderer>().flipX = false;
             }
-        }
-
-
-        if(movement.x < 0 && !isLeft)
-        {
-            isLeft = true;
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else if (movement.x > 0 && isLeft)
-        {
-            isLeft = false;
-            GetComponent<SpriteRenderer>().flipX = true;
+            else if (movement.x > 0 && isLeft)
+            {
+                isLeft = false;
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
         }
     }
 

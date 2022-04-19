@@ -12,6 +12,12 @@ abstract public class DialogEvent : MonoBehaviour
     [Header("Dialog Objects")]
     [SerializeField] [Tooltip("The lines of dialog shown in order.")]
     protected string[] dialogLines;
+    protected bool dialogWrittenInHistory;
+    [SerializeField]
+    [Tooltip("The lines of dialog (if the player has seen the cutscene) shown in order.")]
+    protected string[] hasSeenLines;
+    protected bool hasSeen;
+    protected bool hasSeenWrittenInHistory;
     [SerializeField] [Tooltip("The object that holds the message text.")]
     protected TextMeshProUGUI messageText;
     [SerializeField] [Tooltip("The object that holds whatever will be used to tell the player to continue the dialog.")]
@@ -21,7 +27,8 @@ abstract public class DialogEvent : MonoBehaviour
 
     public int GetCurrentLine() { return this.currentLine; }
     public int GetDialogLength() { return this.dialogLines.Length; }
-
+    public bool HasSeenCutscene() { return hasSeen; }
+    public int GetSeenDialogLength() { return this.hasSeenLines.Length; }
     public abstract void OnDialogStart();
     public abstract void OnEventComplete();
 }
