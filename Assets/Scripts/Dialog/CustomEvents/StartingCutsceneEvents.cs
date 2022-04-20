@@ -6,6 +6,7 @@ public class StartingCutsceneEvents : CustomEvent
 {
     private CutsceneDialogHandler cutsceneDialogHandler;
     [SerializeField] private GameObject blackScreen;
+    [SerializeField] private Color scaredTextColor;
 
     private void Awake()
     {
@@ -17,8 +18,12 @@ public class StartingCutsceneEvents : CustomEvent
         switch (indexNumber)
         {
             case 0:
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Play("CutsceneBGM", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
+                }
                 cutsceneDialogHandler.HideSprite();
-                ShowBlackScreen();
+                cutsceneDialogHandler.ShowBlackScreen();
                 break;
             case 2:
                 cutsceneDialogHandler.SetNameBoxText("Unknown Voice 1");
@@ -36,47 +41,65 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.SetNameBoxText("Clementine");
                 break;
             case 8:
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Stop("CutsceneBGM");
+                }
                 cutsceneDialogHandler.ChangeStill(0);
                 cutsceneDialogHandler.ShowStill();
                 cutsceneDialogHandler.HideNameBox();
                 break;
             case 11:
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Play("ShockedBGM", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
+                    FindObjectOfType<AudioManager>().Play("ShockedSFX", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+                }
                 cutsceneDialogHandler.ChangeStill(1);
                 cutsceneDialogHandler.ShowNameBox();
                 break;
             case 12:
+                cutsceneDialogHandler.SetTextColor(scaredTextColor);
                 cutsceneDialogHandler.SetForceSkip(true);
                 break;
             case 23:
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Stop("ShockedBGM");
+                }
                 cutsceneDialogHandler.HideStill();
+                cutsceneDialogHandler.ResetTextColor();
                 cutsceneDialogHandler.SetForceSkip(false);
                 break;
             case 27:
-                HideBlackScreen();
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Play("CutsceneBGM", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
+                }
+                cutsceneDialogHandler.HideBlackScreen();
+                cutsceneDialogHandler.ChangeSprite(2);
                 cutsceneDialogHandler.ShowSprite();
                 break;
             case 29:
+                cutsceneDialogHandler.ChangeSprite(3);
                 cutsceneDialogHandler.SpriteJump();
                 break;
+            case 32:
+                cutsceneDialogHandler.ChangeSprite(0);
+                break;
+            case 35:
+                cutsceneDialogHandler.ChangeSprite(1);
+                break;
         }
-    }
-
-    public void ShowBlackScreen()
-    {
-        blackScreen.SetActive(true);
-    }
-
-    public void HideBlackScreen()
-    {
-        blackScreen.SetActive(false);
     }
 
     public override void CustomOnEventComplete()
     {
         if (FindObjectOfType<AudioManager>() != null)
         {
+            FindObjectOfType<AudioManager>().Stop("CutsceneBGM");
             FindObjectOfType<AudioManager>().Play("Morgue", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
         }
-        StartCoroutine(TutorialController.main.ShowTutorialBox("Hold Left Click On The Mouse And Drag Left Or Right To Move Around The Scene.", 1, 1, 5));
+        PopupController.main.DisplayPopup("Hold Left Click On The Mouse And Drag Left Or Right To Move Around The Scene.", 1, 1, 5);
     }
 }

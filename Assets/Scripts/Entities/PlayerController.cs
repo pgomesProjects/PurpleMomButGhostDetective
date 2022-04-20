@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
     private void CheckPlayerAnimation()
     {
         //Animate the sprite when the game is not paused
-        if(PauseController.main != null && !PauseController.main.isPaused)
+        if(PauseController.main != null && !PauseController.main.isPaused && !GameManager.instance.isInventoryActive)
         {
             //If the player is not moving and not in a cutscene, set the multiplier to 1
             if (!GameManager.instance.isCutsceneActive)
@@ -160,14 +160,14 @@ public class PlayerController : MonoBehaviour
             }
 
             //Show the pickup text UI
-            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name, 1.05f));
+            InventoryController.main.ShowPickupText(itemData.name, 1.05f);
         }
         else if(!GameManager.instance.playerHasInventory)
         {
             //If the player collected the notebook, do not add it to the inventory, but let them access the inventory
             GameManager.instance.playerHasInventory = true;
             //Show the pickup text UI
-            StartCoroutine(InventoryController.main.ShowPickupText(itemData.name, 5));
+            InventoryController.main.ShowPickupText(itemData.name, 5);
         }
     }
 

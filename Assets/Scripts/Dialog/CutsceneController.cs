@@ -18,6 +18,7 @@ public class CutsceneController : MonoBehaviour
 
     public static CutsceneController main;
 
+    public bool forceSkip = false;
     public bool isSkipping = false;
     public bool isAuto = false;
 
@@ -35,13 +36,6 @@ public class CutsceneController : MonoBehaviour
         isDialogActive = false;
         playerControls = new PlayerControlSystem();
         playerControls.UI.Click.performed += _ => {
-            //If cutscene dialog is advanced, play mouse click SFX
-            if (isDialogActive && !DialogController.main.isControlButtonHovered)
-            {
-                if (FindObjectOfType<AudioManager>() != null)
-                    FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
-            }
-
             //Advance text if they are not selecting a button
             if (!DialogController.main.isControlButtonHovered)
                 AdvanceText();
@@ -64,11 +58,19 @@ public class CutsceneController : MonoBehaviour
 
             //If there is no text and there are still seen lines left, check for events needed to display the text
             else if (dialogEvent.HasSeenCutscene() && dialogEvent.GetCurrentLine() < dialogEvent.GetSeenDialogLength())
+            {
+                if (FindObjectOfType<AudioManager>() != null && !isSkipping && !isAuto && !forceSkip)
+                    FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
                 dialogEvent.CheckEvents(ref textWriterSingle);
+            }
 
             //If there is no text and there are still lines left, check for events needed to display the text
             else if (!dialogEvent.HasSeenCutscene() && dialogEvent.GetCurrentLine() < dialogEvent.GetDialogLength())
+            {
+                if (FindObjectOfType<AudioManager>() != null && !isSkipping && !isAuto && !forceSkip)
+                    FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
                 dialogEvent.CheckEvents(ref textWriterSingle);
+            }
 
             //If all of the text has been shown, call the event for when the text is complete
             else

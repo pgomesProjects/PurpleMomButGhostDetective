@@ -1136,7 +1136,7 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: CutsceneBGM
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 90260e91ef5cae04985d44dc77e12e4a, type: 3}
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -1144,6 +1144,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a63a366e493caea4aafdc74211166907, type: 3}
     pitch: 1
     loop: 0
+    source: {fileID: 0}
+  - name: ShockedBGM
+    clip: {fileID: 8300000, guid: 5981630cdc740ef44a69de4c29f65b31, type: 3}
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
   - name: MouseClick
     clip: {fileID: 8300000, guid: 6f7c17b27c377f14990ac21b821338b0, type: 3}
@@ -1157,6 +1162,21 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: StepRight
     clip: {fileID: 8300000, guid: 186ccceca7746a847a2efe5fa316ab3b, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ShockedSFX
+    clip: {fileID: 8300000, guid: 4d0709b4736eae146bac0b9c9fafa337, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DoorUnlockSFX
+    clip: {fileID: 8300000, guid: 51732064878b8cf4fbfe9a930c6343b3, type: 3}
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DoorOpenSFX
+    clip: {fileID: 8300000, guid: c7f0103593e207d498170494cd8d2b79, type: 3}
     pitch: 1
     loop: 0
     source: {fileID: 0}

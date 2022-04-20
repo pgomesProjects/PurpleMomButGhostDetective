@@ -89,8 +89,11 @@ public class CutsceneDialogHandler : CutsceneEvent
         forceSkip = skip;
         if (!CutsceneController.main.isSkipping)
         {
+            CutsceneController.main.forceSkip = forceSkip;
             if (forceSkip)
+            {
                 CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed * skipTextMultiplier;
+            }
             else
                 CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed;
         }

@@ -21,6 +21,13 @@ public class BodyShownCutsceneEvents : CustomEvent
                 case 0:
                     cutsceneDialogHandler.ChangeStill(0);
                     cutsceneDialogHandler.ShowStill();
+
+                    cutsceneDialogHandler.ChangeSprite(1);
+                    cutsceneDialogHandler.SpriteJump();
+                    cutsceneDialogHandler.ShowSprite();
+                    break;
+                case 3:
+                    cutsceneDialogHandler.ChangeSprite(2);
                     break;
             }
         }
@@ -42,5 +49,9 @@ public class BodyShownCutsceneEvents : CustomEvent
     public override void CustomOnEventComplete()
     {
         cutsceneDialogHandler.HideStill();
+
+        //Tell the level that the player interacted with the body
+        MorgueManager.main.SetInteraction(MorgueManager.Interaction.VIEWBODY, true);
+        MorgueManager.main.UpdateReadyForNextLevel();
     }
 }

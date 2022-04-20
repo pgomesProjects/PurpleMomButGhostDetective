@@ -11,6 +11,8 @@ TagManager:
   - NameBox
   - Controls
   - Continue
+  - Lock
+  - Door
   layers:
   - Default
   - TransparentFX

@@ -13,6 +13,16 @@ public class SettingsController : MonoBehaviour
     {
         volumeSliders[0].value = PlayerPrefs.GetFloat("BGMVolume", 0.5f) * 10;
         volumeSliders[1].value = PlayerPrefs.GetFloat("SFXVolume", 0.5f) * 10;
+        if(PlayerPrefs.GetInt("VSyncEnabled") == 1)
+        {
+            vSyncToggle.isOn = true;
+            QualitySettings.vSyncCount = 1;
+        }
+        else
+        {
+            vSyncToggle.isOn = false;
+            QualitySettings.vSyncCount = 0;
+        }
     }
 
     public void OnButtonClick()
@@ -38,6 +48,15 @@ public class SettingsController : MonoBehaviour
 
     public void VSyncEnabled(bool vSync)
     {
-
+        if (vSync)
+        {
+            PlayerPrefs.SetInt("VSyncEnabled", 1);
+            QualitySettings.vSyncCount = 1;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("VSyncEnabled", 0);
+            QualitySettings.vSyncCount = 0;
+        }
     }
 }

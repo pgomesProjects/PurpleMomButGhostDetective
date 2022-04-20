@@ -10,6 +10,7 @@ public class InventoryController : MonoBehaviour
     private PlayerController playerController;
     [SerializeField] private GameObject inventoryUI;
     private bool isInventoryActive;
+    private IEnumerator displayPickupTextCoroutine;
     private PlayerController player;
     [SerializeField] private Image[] imageGrid;
     [SerializeField] private GameObject pickupIndicatorObject;
@@ -85,7 +86,7 @@ public class InventoryController : MonoBehaviour
             if (i.name == "Door Keychain" && !GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY])
             {
                 GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY] = true;
-                StartCoroutine(TutorialController.main.ShowTutorialBox("To Use An Item, Drag It Out Of The Inventory And Onto An Area You Would Like To Use It On.", 0.5f, 0.5f, 5));
+                PopupController.main.DisplayPopup("To Use An Item, Drag It Out Of The Inventory And Onto An Area You Would Like To Use It On.", 0.5f, 0.5f, 5);
             }
 
             imageGrid[counter].sprite = i.itemImage;
@@ -123,7 +124,18 @@ public class InventoryController : MonoBehaviour
             DisplayInventory();
         }
     }
-    public IEnumerator ShowPickupText(string item, float showSeconds)
+
+    public void ShowPickupText(string item, float showSeconds)
+    {
+        if (displayPickupTextCoroutine != null)
+        {
+            StopCoroutine(displayPickupTextCoroutine);
+        }
+        displayPickupTextCoroutine = PickupTextAnimation(item, showSeconds);
+        StartCoroutine(displayPickupTextCoroutine);
+    }
+
+    private IEnumerator PickupTextAnimation(string item, float showSeconds)
     {
         if(item == "Notebook")
         {

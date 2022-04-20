@@ -16,8 +16,20 @@ public class AutopsyCutsceneEvents : CustomEvent
     {
         switch (indexNumber)
         {
+            case 0:
+                cutsceneDialogHandler.ShowSprite();
+                break;
             case 2:
                 ShowAutopsy();
+                break;
+            case 7:
+                cutsceneDialogHandler.ChangeSprite(1);
+                break;
+            case 8:
+                cutsceneDialogHandler.ChangeSprite(2);
+                break;
+            case 9:
+                cutsceneDialogHandler.ChangeSprite(0);
                 break;
         }
     }
@@ -35,5 +47,9 @@ public class AutopsyCutsceneEvents : CustomEvent
     public override void CustomOnEventComplete()
     {
         HideAutopsy();
+
+        //Tell the level that the player interacted with the autopsy report
+        MorgueManager.main.SetInteraction(MorgueManager.Interaction.VIEWAUTOPSY, true);
+        MorgueManager.main.UpdateReadyForNextLevel();
     }
 }

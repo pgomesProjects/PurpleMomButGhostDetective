@@ -18,6 +18,9 @@ public abstract class CutsceneEvent : DialogEvent
     protected GameObject nameBox;
     [SerializeField][Tooltip("The text box for the name box.")]
     protected TextMeshProUGUI nameText;
+    [SerializeField]
+    [Tooltip("A black screen used for cutscenes.")]
+    protected GameObject blackScreen;
 
     [SerializeField][Tooltip("The images for the sprites in the cutscene.\nNote: The cutscene loads the first sprite given on start.")]
     protected Sprite[] spriteImages;
@@ -72,6 +75,31 @@ public abstract class CutsceneEvent : DialogEvent
         {
             stillSprite.GetComponent<Image>().sprite = stillImages[index];
         }
+    }
+
+    public void ShowBlackScreen()
+    {
+        blackScreen.SetActive(true);
+    }
+
+    public void HideBlackScreen()
+    {
+        blackScreen.SetActive(false);
+    }
+    
+    public void ItalicizeText()
+    {
+        messageText.fontStyle = TMPro.FontStyles.Italic;
+    }
+
+    public void SetTextColor(Color newColor)
+    {
+        messageText.color = newColor;
+    }
+
+    public void ResetTextColor()
+    {
+        messageText.color = Color.black;
     }
 
     public void SpriteJump()

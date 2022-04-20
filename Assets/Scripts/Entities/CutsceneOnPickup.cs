@@ -8,12 +8,17 @@ public class CutsceneOnPickup : MonoBehaviour
 
     public void OnPickup()
     {
+        StartCoroutine(StartCutsceneDelay(0.1f));
+    }
+
+    IEnumerator StartCutsceneDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
         if (pickupCutscene != null)
-        {
-            //Give the dialog event to the cutscene controller and start the cutscene
+        {   //Give the dialog event to the cutscene controller and start the cutscene
             CutsceneController.main.dialogEvent = pickupCutscene;
             CutsceneController.main.TriggerDialogEvent();
-            Destroy(gameObject);
+            Destroy(gameObject, seconds);
         }
     }
 }

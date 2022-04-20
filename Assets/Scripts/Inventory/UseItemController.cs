@@ -44,6 +44,12 @@ public class UseItemController : MonoBehaviour, IPointerEnterHandler, IPointerEx
             Debug.Log("Item Successfully Used!");
             InventoryController.main.hasSuccessfulInteraction = true;
             isUsed = true;
+
+            //If this item is a lock, call the appropriate key function
+            if (gameObject.CompareTag("Lock")) 
+            {
+                GetComponent<KeyController>().UseKeyOnDoor();
+            }
         }
     }
 }
