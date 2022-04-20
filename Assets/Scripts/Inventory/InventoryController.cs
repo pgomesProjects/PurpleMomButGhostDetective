@@ -53,19 +53,16 @@ public class InventoryController : MonoBehaviour
         playerControls.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void ToggleInventory()
     {
+        //If there's no cutscene and the player has the inventory, toggle the inventory visibility
         if (GameManager.instance.playerHasInventory && !GameManager.instance.isCutsceneActive)
         {
             isInventoryActive = !isInventoryActive;
             inventoryUI.SetActive(isInventoryActive);
             GameManager.instance.isInventoryActive = isInventoryActive;
+
+            //Display all of the items in the inventory
             if (isInventoryActive)
             {
                 DisplayInventory();
@@ -111,6 +108,7 @@ public class InventoryController : MonoBehaviour
         {
             //Get rid of item from inventory
             playerController.RemoveFromInventory(activeInventoryID);
+            //Clear the inventory display so that it can be updated
             ClearInventoryDisplay();
             //Make sure the inventory is inactive
             isInventoryActive = false;
@@ -119,6 +117,8 @@ public class InventoryController : MonoBehaviour
 
         inventoryUI.SetActive(isInventoryActive);
         GameManager.instance.isInventoryActive = isInventoryActive;
+
+        //Create the inventory display again with the updated information
         if (isInventoryActive)
         {
             DisplayInventory();
@@ -127,16 +127,19 @@ public class InventoryController : MonoBehaviour
 
     public void ShowPickupText(string item, float showSeconds)
     {
+        //If there's already pickup text showing, stop it from showing
         if (displayPickupTextCoroutine != null)
         {
             StopCoroutine(displayPickupTextCoroutine);
         }
+        //Update the coroutine with the new popup text and show the new popup
         displayPickupTextCoroutine = PickupTextAnimation(item, showSeconds);
         StartCoroutine(displayPickupTextCoroutine);
     }
 
     private IEnumerator PickupTextAnimation(string item, float showSeconds)
     {
+        //Display a different message if the item picked up is the notebook
         if(item == "Notebook")
         {
             pickupText.text = "Picked Up Notebook.<br><size=40>You may now collect items. Press E to access your inventory.</size>";

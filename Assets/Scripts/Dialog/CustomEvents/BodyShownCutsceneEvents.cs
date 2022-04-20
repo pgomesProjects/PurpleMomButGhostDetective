@@ -13,15 +13,18 @@ public class BodyShownCutsceneEvents : CustomEvent
 
     public override void CheckForCustomEvent(int indexNumber)
     {
+        //Call certain functions based on the index number of the dialog being given
         //First time cutscene events
         if (!cutsceneDialogHandler.HasSeenCutscene())
         {
             switch (indexNumber)
             {
                 case 0:
+                    //Change the still image and then show it
                     cutsceneDialogHandler.ChangeStill(0);
                     cutsceneDialogHandler.ShowStill();
 
+                    //Change the sprite and then give it a little jump animation
                     cutsceneDialogHandler.ChangeSprite(1);
                     cutsceneDialogHandler.SpriteJump();
                     cutsceneDialogHandler.ShowSprite();
@@ -38,6 +41,7 @@ public class BodyShownCutsceneEvents : CustomEvent
             switch (indexNumber)
             {
                 case 0:
+                    //Show the still, but don't show the sprite
                     cutsceneDialogHandler.ChangeStill(0);
                     cutsceneDialogHandler.ShowStill();
                     cutsceneDialogHandler.HideSprite();
@@ -48,6 +52,7 @@ public class BodyShownCutsceneEvents : CustomEvent
 
     public override void CustomOnEventComplete()
     {
+        //Hide the still after the cutscene is over
         cutsceneDialogHandler.HideStill();
 
         //Tell the level that the player interacted with the body

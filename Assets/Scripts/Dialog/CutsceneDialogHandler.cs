@@ -20,8 +20,11 @@ public class CutsceneDialogHandler : CutsceneEvent
 
     public override void OnDialogStart()
     {
+        //Make sure the text speed is normal and then show the cutscene UI
         CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed;
         cutsceneUI.SetActive(true);
+
+        //These are the default options for the cutscene
         ChangeSprite(0);
         SetNameBoxText("Clementine");
     }
@@ -63,25 +66,19 @@ public class CutsceneDialogHandler : CutsceneEvent
         if (cutsceneCustomEvents != null)
             cutsceneCustomEvents.CheckForCustomEvent(currentLine);
 
+        //Hide the continue object while the text is being displayed
         continueObject.SetActive(false);
 
+        //If the text is skipping, multiply the speed by the defined skip speed multiplier
         if (CutsceneController.main.isSkipping)
             CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed * CutsceneController.main.skipSpeedMultiplier;
 
         Debug.Log("Current Text Speed: " + CutsceneController.main.currentTextSpeed);
+
+        //Use the text writer class to write each character one by one
         textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, 1 / CutsceneController.main.currentTextSpeed, true, true, OnTextComplete);
+        //Move to the next line in the dialog
         currentLine++;
-    }
-
-    private void SkipText()
-    {
-        StartCoroutine(CutsceneController.main.ForceAdvance());
-    }
-
-    private void AutoAdvanceText()
-    {
-        Debug.Log("Time To Read Text: " + timeToReadText + " seconds");
-        StartCoroutine(CutsceneController.main.AutoAdvance(timeToReadText));
     }
 
     public void SetForceSkip(bool skip)
@@ -110,18 +107,33 @@ public class CutsceneDialogHandler : CutsceneEvent
     public void OnTextComplete()
     {
         textCompleted = true;
+
+        //If the text is being skipped, call the skip text function to forcefully advance the text
         if (forceSkip || CutsceneController.main.isSkipping)
         {
             SkipText();
         }
+        //If the text is being auto read, call the function that makes it have a delay before the text auto-advances
         else if (CutsceneController.main.isAuto)
         {
             AutoAdvanceText();
         }
+        //If neither, show the continue object so the player knows to advance the text themselves
         else
         {
             continueObject.SetActive(true);
         }
+    }
+
+    private void SkipText()
+    {
+        StartCoroutine(CutsceneController.main.ForceAdvance());
+    }
+
+    private void AutoAdvanceText()
+    {
+        Debug.Log("Time To Read Text: " + timeToReadText + " seconds");
+        StartCoroutine(CutsceneController.main.AutoAdvance(timeToReadText));
     }
 
     public override void OnEventComplete()

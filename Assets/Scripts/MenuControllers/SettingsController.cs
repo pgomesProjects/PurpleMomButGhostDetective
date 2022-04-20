@@ -11,6 +11,7 @@ public class SettingsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set the UI to the saved values upon starting the game
         volumeSliders[0].value = PlayerPrefs.GetFloat("BGMVolume", 0.5f) * 10;
         volumeSliders[1].value = PlayerPrefs.GetFloat("SFXVolume", 0.5f) * 10;
         if(PlayerPrefs.GetInt("VSyncEnabled") == 1)

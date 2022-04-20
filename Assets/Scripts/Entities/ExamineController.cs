@@ -25,6 +25,8 @@ public class ExamineController : MonoBehaviour, IPointerEnterHandler, IPointerEx
                 if (FindObjectOfType<AudioManager>() != null)
                     FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
 
+                //Start cutscene with a tiny delay so that it's not called in the same frame
+                //This gives some of the code some time to freeze the player
                 StartCoroutine(StartCutsceneDelay(0.1f));
             }
         }
@@ -42,6 +44,7 @@ public class ExamineController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //If there's no cutscenes and the player has access to their inventory, show the highlight
         if (!GameManager.instance.isCutsceneActive)
         {
             if (GameManager.instance.playerHasInventory)
@@ -53,6 +56,7 @@ public class ExamineController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        //If the player has access to their inventory, hide the highlight after leaving
         if (GameManager.instance.playerHasInventory)
         {
             highlight.gameObject.SetActive(false);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IntroEvents : CustomEvent
 {
+    //This class is used as an example event system
     private CutsceneDialogHandler cutsceneDialogHandler;
 
     private void Awake()

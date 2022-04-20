@@ -8,6 +8,7 @@ public class KeyController : MonoBehaviour
 
     public void UseKeyOnDoor()
     {
+        //If the door to the key exists, unlock the door
         if (door != null)
         {
             door.UnlockDoor();

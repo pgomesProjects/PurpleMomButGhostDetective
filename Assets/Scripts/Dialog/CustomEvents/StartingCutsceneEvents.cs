@@ -25,6 +25,7 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.HideSprite();
                 cutsceneDialogHandler.ShowBlackScreen();
                 break;
+            //Changing the name boxes for the dialog
             case 2:
                 cutsceneDialogHandler.SetNameBoxText("Unknown Voice 1");
                 break;
@@ -41,37 +42,46 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.SetNameBoxText("Clementine");
                 break;
             case 8:
+                //Stop the background music
                 if (FindObjectOfType<AudioManager>() != null)
                 {
                     FindObjectOfType<AudioManager>().Stop("CutsceneBGM");
                 }
+                //Show the still of Clementine looking in the mirror
                 cutsceneDialogHandler.ChangeStill(0);
                 cutsceneDialogHandler.ShowStill();
                 cutsceneDialogHandler.HideNameBox();
                 break;
             case 11:
+                //Play the shock sound effect and the shocked background music to accompany it
                 if (FindObjectOfType<AudioManager>() != null)
                 {
                     FindObjectOfType<AudioManager>().Play("ShockedBGM", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
                     FindObjectOfType<AudioManager>().Play("ShockedSFX", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
                 }
+                //Change the still to the scared image
                 cutsceneDialogHandler.ChangeStill(1);
                 cutsceneDialogHandler.ShowNameBox();
                 break;
             case 12:
+                //Change the text to red and start forcefully skipping through text
                 cutsceneDialogHandler.SetTextColor(scaredTextColor);
                 cutsceneDialogHandler.SetForceSkip(true);
                 break;
             case 23:
+                //Stop the shocked music
                 if (FindObjectOfType<AudioManager>() != null)
                 {
                     FindObjectOfType<AudioManager>().Stop("ShockedBGM");
                 }
                 cutsceneDialogHandler.HideStill();
+
+                //Reset the text color to black and stop forcefully skipping through text
                 cutsceneDialogHandler.ResetTextColor();
                 cutsceneDialogHandler.SetForceSkip(false);
                 break;
             case 27:
+                //Play the cutscene music again from the beginning
                 if (FindObjectOfType<AudioManager>() != null)
                 {
                     FindObjectOfType<AudioManager>().Play("CutsceneBGM", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
@@ -95,11 +105,14 @@ public class StartingCutsceneEvents : CustomEvent
 
     public override void CustomOnEventComplete()
     {
+        //Stop the cutscene music and play the background music that will be used in-game
         if (FindObjectOfType<AudioManager>() != null)
         {
             FindObjectOfType<AudioManager>().Stop("CutsceneBGM");
             FindObjectOfType<AudioManager>().Play("Morgue", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
         }
+
+        //Show the tutorial prompt immediately after the cutscene is over
         PopupController.main.DisplayPopup("Hold Left Click On The Mouse And Drag Left Or Right To Move Around The Scene.", 1, 1, 5);
     }
 }

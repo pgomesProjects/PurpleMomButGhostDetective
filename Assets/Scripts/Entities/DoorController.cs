@@ -26,17 +26,21 @@ public class DoorController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             if (FindObjectOfType<AudioManager>() != null)
                 FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
 
+            //If the door is unlocked
             if (isUnlocked)
             {
+                //If the level is ready to advance, play the exit cutscene
                 if (MorgueManager.main.readyForNextLevel)
                 {
                     StartCoroutine(StartCutsceneDelay(0.1f));
                 }
+                //If not, tell the player that they still need to investigate
                 else
                 {
                     PopupController.main.DisplayPopup("<i>There Are Still Items You Must Investigate Here.</i>", 0.25f, 0.25f, 3);
                 }
             }
+            //If the door is locked, tell the player that the door is locked with a pop up
             else
             {
                 PopupController.main.DisplayPopup("<i>The Door Is Locked. Find A Way To Open It.</i>", 0.25f, 0.25f, 3);
@@ -71,8 +75,10 @@ public class DoorController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void UnlockDoor()
     {
+        //If the door is unlocked and the playeer can unlock it, unlock it
         if (!isUnlocked)
         {
+            //Unlock door SFX
             if(FindObjectOfType<AudioManager>() != null)
                 FindObjectOfType<AudioManager>().Play("DoorUnlockSFX", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
             isUnlocked = true;

@@ -15,6 +15,7 @@ public class ItemPieceEvents : MonoBehaviour,
         gridParent = transform.parent.GetComponent<GridPieceEvents>();    
     }
 
+    //the item image pieces use the same functions as the grid behind them
     public void OnPointerDown(PointerEventData eventData)
     {
         gridParent.OnPointerDown(eventData);

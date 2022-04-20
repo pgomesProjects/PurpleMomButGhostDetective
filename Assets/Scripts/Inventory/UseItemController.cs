@@ -38,6 +38,7 @@ public class UseItemController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     private void CheckUseItem()
     {
+        //If the used volume is hovered over, the right piece is selected, and the used volume is not used, use the item
         if (InventoryController.main.activeInventoryID == requiredID && isSelected && !isUsed)
         {
             Debug.Log("Current ID: " + InventoryController.main.activeInventoryID);

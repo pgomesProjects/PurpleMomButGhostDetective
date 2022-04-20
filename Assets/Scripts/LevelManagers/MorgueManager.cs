@@ -22,6 +22,7 @@ public class MorgueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Start the player without their inventory and having not viewed any of the tutorials
         if(GameManager.instance != null)
         {
             GameManager.instance.playerHasInventory = false;

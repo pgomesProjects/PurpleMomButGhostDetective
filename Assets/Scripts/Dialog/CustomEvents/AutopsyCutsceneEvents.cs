@@ -14,12 +14,14 @@ public class AutopsyCutsceneEvents : CustomEvent
 
     public override void CheckForCustomEvent(int indexNumber)
     {
+        //Call certain functions based on the index number of the dialog being given
         switch (indexNumber)
         {
             case 0:
                 cutsceneDialogHandler.ShowSprite();
                 break;
             case 2:
+                //Show the autopsy paper
                 ShowAutopsy();
                 break;
             case 7:
@@ -46,6 +48,7 @@ public class AutopsyCutsceneEvents : CustomEvent
 
     public override void CustomOnEventComplete()
     {
+        //Hide the autopsy paper
         HideAutopsy();
 
         //Tell the level that the player interacted with the autopsy report

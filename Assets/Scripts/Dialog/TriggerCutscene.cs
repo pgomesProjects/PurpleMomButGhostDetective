@@ -6,6 +6,7 @@ public class TriggerCutscene : MonoBehaviour
 {
     [SerializeField] private DialogEvent currentCutscene;
 
+    //An example class of triggering a cutscene when you collide with a box
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

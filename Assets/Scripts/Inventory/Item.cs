@@ -12,6 +12,7 @@ public class Item
     public Color imageColor;
     public int [] combineItemIDs;
 
+    //This is a custom Item class created to store groups of data for one Item object
     public Item(int itemID, string itemName, int itemQuantity, SpriteRenderer itemImg, int [] combineItems)
     {
         ID = itemID;

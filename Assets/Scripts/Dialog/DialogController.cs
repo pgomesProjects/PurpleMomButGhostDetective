@@ -35,16 +35,19 @@ public class DialogController : MonoBehaviour
 
     public void ClearLog()
     {
+        //Wipe out the history log
         historyLog.Clear();
     }
 
     public void AddToLog(string message)
     {
+        //Add a line to the history log
         historyLog.Add(message);
     }
 
     private void DisplayLog()
     {
+        //Display all of the lines that are in the history log
         logText.text = "";
         foreach(var i in historyLog)
         {
@@ -54,12 +57,14 @@ public class DialogController : MonoBehaviour
 
     public void ToggleDialog()
     {
+        //Hides or unhides the dialog, depending on which state it's in
         isDialogShown = !isDialogShown;
         dialogObject.SetActive(isDialogShown);
     }
 
     public void ShowHistoryLog()
     {
+        //Mouse click SFX
         if (FindObjectOfType<AudioManager>() != null)
             FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
 
@@ -80,6 +85,7 @@ public class DialogController : MonoBehaviour
         }
         else
         {
+            //Mouse click SFX
             if (FindObjectOfType<AudioManager>() != null)
                 FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
         }
@@ -87,16 +93,20 @@ public class DialogController : MonoBehaviour
 
     public void ToggleSkip()
     {
+        //Mouse click SFX
         if (FindObjectOfType<AudioManager>() != null)
             FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
 
         CutsceneController.main.isSkipping = !CutsceneController.main.isSkipping;
+
+        //If the cutscene is now skipping, increase the text speed, any UI animation speeds, and auto advance
         if (CutsceneController.main.isSkipping)
         {
             CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed * CutsceneController.main.skipSpeedMultiplier;
             CutsceneController.main.spriteAnimator.SetFloat("Multiplier", 10);
             CutsceneController.main.CheckForAdvance();
         }
+        //If the scene is no longer skipping, set the text speed to normal and the UI animation speeds to normal
         else
         {
             CutsceneController.main.currentTextSpeed = CutsceneController.main.textSpeed;
@@ -107,9 +117,11 @@ public class DialogController : MonoBehaviour
 
     public void ToggleAuto()
     {
+        //Mouse click SFX
         if (FindObjectOfType<AudioManager>() != null)
             FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
 
+        //Toggle the is auto variable. No need to do anything else here since it will start on its own in the dialog controller
         CutsceneController.main.isAuto = !CutsceneController.main.isAuto;
     }
 }

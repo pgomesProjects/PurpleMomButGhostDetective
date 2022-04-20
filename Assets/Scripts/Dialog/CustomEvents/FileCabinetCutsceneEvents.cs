@@ -13,6 +13,7 @@ public class FileCabinetCutsceneEvents : CustomEvent
 
     public override void CheckForCustomEvent(int indexNumber)
     {
+        //Call certain functions based on the index number of the dialog being given
         //First time cutscene events
         if (!cutsceneDialogHandler.HasSeenCutscene())
         {

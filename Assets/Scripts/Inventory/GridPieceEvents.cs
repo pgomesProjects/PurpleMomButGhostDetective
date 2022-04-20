@@ -35,6 +35,7 @@ public class GridPieceEvents : MonoBehaviour,
 
     private void Update()
     {
+        //While a grid piece is selected, hide the grid background and have the item image follow the mouse
         if (isSelected)
         {
             Vector3 mousePos = Mouse.current.position.ReadValue();
@@ -63,6 +64,7 @@ public class GridPieceEvents : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        //If there's an image visible in the grid and the player has selected the image, drag the image
         if (gridItemImage.color.a != 0)
         {
             //Mouse click SFX

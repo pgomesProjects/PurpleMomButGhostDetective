@@ -28,10 +28,13 @@ public class PopupController : MonoBehaviour
 
     public void DisplayPopup(string message, float fadeInTime, float fadeOutTime, int secondsActive)
     {
+        //If there's currently a popup box being shown, stop it from being shown
         if (showPopBoxCoroutine != null)
         {
             StopCoroutine(showPopBoxCoroutine);
         }
+
+        //Set the popup box coroutine to the newest popup box and start the coroutine
         showPopBoxCoroutine = ShowPopupBox(message, fadeInTime, fadeOutTime, secondsActive);
         StartCoroutine(showPopBoxCoroutine);
     }

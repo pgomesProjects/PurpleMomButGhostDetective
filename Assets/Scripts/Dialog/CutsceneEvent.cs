@@ -29,6 +29,8 @@ public abstract class CutsceneEvent : DialogEvent
     [Tooltip("The images for the stills in the cutscene.")]
     protected Sprite[] stillImages;
 
+    //These are a bunch of different functions that cutscenes can call
+    //They are here because they are functions that are likely to be used by multiple cutscenes
     public void ShowNameBox()
     {
         nameBox.SetActive(true);
@@ -76,7 +78,6 @@ public abstract class CutsceneEvent : DialogEvent
             stillSprite.GetComponent<Image>().sprite = stillImages[index];
         }
     }
-
     public void ShowBlackScreen()
     {
         blackScreen.SetActive(true);

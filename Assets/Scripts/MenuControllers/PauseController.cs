@@ -36,6 +36,7 @@ public class PauseController : MonoBehaviour
 
     public void PauseToggle()
     {
+        //If the inventory is not active and a cutscene is not active, allow the player to pause
         if (!GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
         {
             isPaused = !isPaused;
@@ -43,7 +44,11 @@ public class PauseController : MonoBehaviour
             //Pause
             if (isPaused)
             {
+                //Time scale being set to 0 prevents anything in the main thread from moving
+                //UI input can still be tracked, though
                 Time.timeScale = 0.0f;
+
+                //Pause the in-game music
                 if (FindObjectOfType<AudioManager>() != null)
                 {
                     FindObjectOfType<AudioManager>().Pause("Morgue");
@@ -63,12 +68,14 @@ public class PauseController : MonoBehaviour
 
     public void Resume()
     {
+        //Play the mouse click SFX and continue the in-game music
         if (FindObjectOfType<AudioManager>() != null)
         {
             FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
             FindObjectOfType<AudioManager>().Resume("Morgue");
         }
 
+        //Hide the pause menu and start time again
         isPaused = false;
         pauseUI.SetActive(isPaused);
 
@@ -77,6 +84,7 @@ public class PauseController : MonoBehaviour
 
     public void ReturnToMain()
     {
+        //Start time again, play the mouse click SFX, and stop the in-game music
         Time.timeScale = 1.0f;
         if (FindObjectOfType<AudioManager>() != null)
         {
@@ -86,8 +94,10 @@ public class PauseController : MonoBehaviour
 
         string levelMain = "Titlescreen";
 
+        //If the level fader is in the level, use it to move to the next scene
         if (LevelFader.instance != null)
             LevelFader.instance.FadeToLevel(levelMain);
+        //If not, just load the scene as a failsafe
         else
             SceneManager.LoadScene(levelMain);
     }

@@ -16,6 +16,7 @@ public class TextWriter : MonoBehaviour
         textWriterSingleList = new List<TextWriterSingle>();   
     }
 
+    //These static functions are used to call the text writer from any class that you need to
     public static TextWriterSingle AddWriter_Static(Action onBegin, TextMeshProUGUI uiText, string dialog, float timePerChar, bool invisibleCharacters, bool removeWriterBeforeAdd, Action onComplete)
     {
         if (removeWriterBeforeAdd)
@@ -99,11 +100,14 @@ public class TextWriter : MonoBehaviour
                 charIndex++;
                 string text = dialog.Substring(0, charIndex);
 
+                //Have invisible characters that make sure the text is aligned vertically
                 if (invisibleCharacters)
                     text += "<color=#00000000>" + dialog.Substring(charIndex) + "</color>";
 
+                //Set the UI text
                 uiText.text = text;
 
+                //If the character index is the length of the dialog line
                 if (charIndex >= dialog.Length)
                 {
                     //Entire string displayed
@@ -120,6 +124,7 @@ public class TextWriter : MonoBehaviour
 
         public void WriteAllAndDestroy()
         {
+            //Show the full dialog line, call the onComplete function, and then remove the TextWriter since it serves no more purpose
             uiText.text = dialog;
             charIndex = dialog.Length;
             if (onComplete != null) onComplete();

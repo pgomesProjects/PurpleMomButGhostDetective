@@ -9,6 +9,7 @@ abstract public class DialogEvent : MonoBehaviour
 {
     protected int currentLine;
 
+    //The basic objects that any dialog event will need
     [Header("Dialog Objects")]
     [SerializeField] [Tooltip("The lines of dialog shown in order.")]
     protected string[] dialogLines;
@@ -23,6 +24,7 @@ abstract public class DialogEvent : MonoBehaviour
     [SerializeField] [Tooltip("The object that holds whatever will be used to tell the player to continue the dialog.")]
     protected GameObject continueObject;
 
+    //Template for checking for events in the dialog
     public abstract void CheckEvents(ref TextWriter.TextWriterSingle textWriterObj);
 
     public int GetCurrentLine() { return this.currentLine; }
