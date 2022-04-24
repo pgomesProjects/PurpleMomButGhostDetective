@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class PickupController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class PickupController : SelectableObject, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("Item Data")]
     public int ID = -1;
@@ -52,20 +52,22 @@ public class PickupController : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!GameManager.instance.isCutsceneActive)
-        {
-            if(GameManager.instance.playerHasInventory || itemData.name == "Notebook")
-            {
-                highlight.gameObject.SetActive(true);
-            }
-        }
+        isHighlighted = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (GameManager.instance.playerHasInventory || itemData.name == "Notebook")
+        isHighlighted = false;
+    }
+
+    private void Update()
+    {
+        if (!GameManager.instance.isCutsceneActive && !PlayerController.main.isMoving)
         {
-            highlight.gameObject.SetActive(false);
+            if (GameManager.instance.playerHasInventory || itemData.name == "Notebook")
+            {
+                highlight.gameObject.SetActive(isHighlighted);
+            }
         }
     }
 }

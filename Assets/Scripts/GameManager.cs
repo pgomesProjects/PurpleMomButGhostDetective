@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public bool isCutsceneActive;
-    public bool isInventoryActive;
-    public bool playerHasInventory;
+    internal bool isCutsceneActive;
+    internal bool isInventoryActive;
+    internal bool playerHasInventory;
+    internal bool playerSelectingItem;
 
-    public enum Tutorial { USEINVENTORY };
+    internal enum Tutorial { USEINVENTORY };
     public bool[] tutorialsShown;
 
     private void Awake()

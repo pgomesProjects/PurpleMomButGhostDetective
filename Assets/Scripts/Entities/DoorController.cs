@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class DoorController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class DoorController : SelectableObject, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public bool isUnlocked;
 
     private Light2D highlight;
-    private bool isSelected;
     [SerializeField] private DialogEvent doorCutscene;
 
     // Start is called before the first frame update
@@ -20,7 +19,7 @@ public class DoorController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!GameManager.instance.isCutsceneActive && isSelected)
+        if (!GameManager.instance.isCutsceneActive && isHighlighted)
         {
             //Play click SFX
             if (FindObjectOfType<AudioManager>() != null)
@@ -60,17 +59,13 @@ public class DoorController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!GameManager.instance.isCutsceneActive)
-        {
-            isSelected = true;
-            highlight.gameObject.SetActive(true);
-        }
+        isHighlighted = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isSelected = false;
-        highlight.gameObject.SetActive(false);
+        isHighlighted = false;
+        GameManager.instance.playerSelectingItem = false;
     }
 
     public void UnlockDoor()
@@ -82,6 +77,15 @@ public class DoorController : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             if(FindObjectOfType<AudioManager>() != null)
                 FindObjectOfType<AudioManager>().Play("DoorUnlockSFX", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
             isUnlocked = true;
+        }
+    }
+
+    private void Update()
+    {
+        //If there's no cutscene active and inventory open and the player isn't actively moving
+        if (!GameManager.instance.isCutsceneActive && !PlayerController.main.isMoving)
+        {
+            highlight.gameObject.SetActive(isHighlighted);
         }
     }
 }

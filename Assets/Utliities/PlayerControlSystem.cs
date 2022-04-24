@@ -325,7 +325,7 @@ public partial class @PlayerControlSystem : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""80930f4c-c7e9-47bd-b7a5-784a56b7c1dc"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.13)"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Click"",

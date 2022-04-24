@@ -15,8 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator charAnimator;
     private bool isLeft;
 
-    [HideInInspector]
-    public bool canMove;
+    internal bool canMove, isMoving;
 
     public static PlayerController main;
 
@@ -52,6 +51,8 @@ public class PlayerController : MonoBehaviour
         //If the player can move, their inventory isn't active, and there's no active cutscene, check for movement input
         if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
             GetPlayerMovementInput();
+        else
+            isMoving = false;
 
         //Always check to see if the player can be animation
         CheckPlayerAnimation();
@@ -61,7 +62,9 @@ public class PlayerController : MonoBehaviour
     {
         //The actual movement is called here because it performs nicer via FixedUpdate
         if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
+        {
             MovePlayer();
+        }
     }
 
     private void GetPlayerMovementInput()
@@ -95,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
+        isMoving = true;
         //This code works, but the player will not collide with anything, so this is commented out
         //transform.position += movement * speed * Time.deltaTime;
 
