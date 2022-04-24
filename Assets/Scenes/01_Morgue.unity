@@ -8087,6 +8087,7 @@ GameObject:
   - component: {fileID: 1589917325}
   - component: {fileID: 1589917327}
   - component: {fileID: 1589917326}
+  - component: {fileID: 1589917328}
   m_Layer: 5
   m_Name: PickupBackground
   m_TagString: Untagged
@@ -8152,6 +8153,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589917324}
   m_CullTransparentMesh: 1
+--- !u!225 &1589917328
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589917324}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!4 &1591114960 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8802871412952525047, guid: d3735b53ff1385b45a940fa1264255e1, type: 3}
@@ -9683,7 +9696,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 0
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!95 &1943049760
 Animator:
