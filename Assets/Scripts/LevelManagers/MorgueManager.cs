@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class MorgueManager : MonoBehaviour
 {
     [SerializeField] private DialogEvent startingCutscene;
+    [SerializeField] private GameObject spawnPoint;
 
     internal bool readyForNextLevel;
     public enum Interaction { VIEWBODY, VIEWDESK, VIEWAUTOPSY };
@@ -25,6 +27,9 @@ public class MorgueManager : MonoBehaviour
         //Start the player without their inventory and having not viewed any of the tutorials
         if(GameManager.instance != null)
         {
+            GameManager.instance.player = Instantiate(GameManager.instance.player, spawnPoint.transform);
+            var vcam = FindObjectOfType<CinemachineVirtualCamera>();
+            vcam.Follow = GameManager.instance.player.transform;
             GameManager.instance.playerHasInventory = false;
             GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY] = false;
         }

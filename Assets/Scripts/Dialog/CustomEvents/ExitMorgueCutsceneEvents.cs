@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExitMorgueCutsceneEvents : CustomEvent
 {
     private CutsceneDialogHandler cutsceneDialogHandler;
+    [SerializeField] private string levelName;
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public class ExitMorgueCutsceneEvents : CustomEvent
         {
             FindObjectOfType<AudioManager>().Stop("Morgue");
         }
-        //Use the level fader to fade into the titlescreen scene
-        LevelFader.instance.FadeToLevel("Titlescreen");
+        //Use the level fader to fade into the next scene
+        LevelFader.instance.FadeToLevel(levelName);
     }
 }

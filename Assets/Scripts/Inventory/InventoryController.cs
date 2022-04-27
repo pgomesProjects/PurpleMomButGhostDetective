@@ -7,7 +7,6 @@ using TMPro;
 public class InventoryController : MonoBehaviour
 {
     private PlayerControlSystem playerControls;
-    private PlayerController playerController;
     [SerializeField] private GameObject inventoryUI;
     private bool isInventoryActive;
     private IEnumerator displayPickupTextCoroutine;
@@ -28,7 +27,6 @@ public class InventoryController : MonoBehaviour
         main = this;
         playerControls = new PlayerControlSystem();
         playerControls.Player.Inventory.performed += _ => ToggleInventory();
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         isDragging = false;
         isHidden = false;
         hasSuccessfulInteraction = false;
@@ -107,7 +105,7 @@ public class InventoryController : MonoBehaviour
         if (hasSuccessfulInteraction)
         {
             //Get rid of item from inventory
-            playerController.RemoveFromInventory(activeInventoryID);
+            player.RemoveFromInventory(activeInventoryID);
             //Clear the inventory display so that it can be updated
             ClearInventoryDisplay();
             //Make sure the inventory is inactive
