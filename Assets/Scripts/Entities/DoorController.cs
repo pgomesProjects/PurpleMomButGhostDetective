@@ -83,7 +83,7 @@ public class DoorController : SelectableObject, IPointerEnterHandler, IPointerEx
     private void Update()
     {
         //If there's no cutscene active and inventory open and the player isn't actively moving
-        if (!GameManager.instance.isCutsceneActive && !PlayerController.main.isMoving)
+        if (!GameManager.instance.isCutsceneActive && !GameManager.instance.isInventoryActive && !PlayerController.main.isMoving)
         {
             highlight.gameObject.SetActive(isHighlighted);
         }

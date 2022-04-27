@@ -13,6 +13,8 @@ public class CutsceneDialogHandler : CutsceneEvent
     [SerializeField] private float skipTextMultiplier = 1.5f;
     private float timeToReadText;
 
+    private bool hideCommandActive;
+
     private void Awake()
     {
         cutsceneCustomEvents = GetComponent<CustomEvent>();
@@ -35,8 +37,12 @@ public class CutsceneDialogHandler : CutsceneEvent
         if (hasSeen)
         {
             message = hasSeenLines[currentLine];
+
+            //Get the text to read the text (based on text count and text speed)
+            timeToReadText = message.Length / CutsceneController.main.currentTextSpeed;
+
             //If the lines have not been written into the history log, write them in
-            if (!hasSeenWrittenInHistory)
+            if (!hasSeenWrittenInHistory && !CheckForCommands(message, ref textWriterObj))
             {
                 //Add to history log
                 if (nameBox.activeInHierarchy)
@@ -47,8 +53,12 @@ public class CutsceneDialogHandler : CutsceneEvent
         else
         {
             message = dialogLines[currentLine];
+
+            //Get the text to read the text (based on text count and text speed)
+            timeToReadText = message.Length / CutsceneController.main.currentTextSpeed;
+
             //If the lines have not been written into the history log, write them in
-            if (!dialogWrittenInHistory)
+            if (!dialogWrittenInHistory && !CheckForCommands(message, ref textWriterObj))
             {
                 //Add to history log
                 if (nameBox.activeInHierarchy)
@@ -58,9 +68,6 @@ public class CutsceneDialogHandler : CutsceneEvent
         }
 
         textCompleted = false;
-
-        //Get the text to read the text (based on text count and text speed)
-        timeToReadText = message.Length / CutsceneController.main.currentTextSpeed;
 
         //Check for custom events if present
         if (cutsceneCustomEvents != null)
@@ -75,10 +82,63 @@ public class CutsceneDialogHandler : CutsceneEvent
 
         Debug.Log("Current Text Speed: " + CutsceneController.main.currentTextSpeed);
 
+        //Give the player at least a half second to read text
+        if (timeToReadText < 0.5f)
+        {
+            timeToReadText = 0.5f;
+        }
+
         //Use the text writer class to write each character one by one
         textWriterObj = TextWriter.AddWriter_Static(null, messageText, message, 1 / CutsceneController.main.currentTextSpeed, true, true, OnTextComplete);
         //Move to the next line in the dialog
         currentLine++;
+    }
+
+    private bool CheckForCommands(string command, ref TextWriter.TextWriterSingle textWriterObj)
+    {
+        //Resets commands that are only active for one line of dialog
+        ResetOneShotCommands();
+
+        //If the current line has valid command context
+        if (command[0] == '[' && command[command.Length - 1] == ']')
+        {
+            //Remove the brackets from the command
+            command = command.Remove(0, 1);
+            command = command.Remove(command.Length - 1, 1);
+
+            //List of dialog commands
+            switch (command)
+            {
+                case "HIDE":
+                    Debug.Log("HIDE COMMAND CALLED!");
+                    HideCommand();
+
+                    //If the cutscene is on auto mode, let the image display for 2 seconds
+                    if(CutsceneController.main.isAuto)
+                        timeToReadText = 2;
+                    //If not, let the player exit whenever they want by clicking
+                    else
+                        textWriterObj.WriteAllAndDestroy();
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void ResetOneShotCommands()
+    {
+        if (hideCommandActive)
+        {
+            SetVisualsOpacity(1);
+            hideCommandActive = false;
+        }
+    }
+
+    private void HideCommand()
+    {
+        SetVisualsOpacity(0);
+        hideCommandActive = true;
     }
 
     public void SetForceSkip(bool skip)

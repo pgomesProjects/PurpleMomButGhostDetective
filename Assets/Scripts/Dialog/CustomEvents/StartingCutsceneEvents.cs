@@ -8,6 +8,8 @@ public class StartingCutsceneEvents : CustomEvent
     [SerializeField] private GameObject blackScreen;
     [SerializeField] private Color scaredTextColor;
 
+    private IEnumerator fadeInCoroutine;
+
     private void Awake()
     {
         cutsceneDialogHandler = GetComponent<CutsceneDialogHandler>();
@@ -49,10 +51,18 @@ public class StartingCutsceneEvents : CustomEvent
                 }
                 //Show the still of Clementine looking in the mirror
                 cutsceneDialogHandler.ChangeStill(0);
-                cutsceneDialogHandler.ShowStill();
+                fadeInCoroutine = cutsceneDialogHandler.FadeInStill(1);
+                StartCoroutine(fadeInCoroutine);
                 cutsceneDialogHandler.HideNameBox();
                 break;
-            case 11:
+            case 9:
+                if (fadeInCoroutine != null)
+                {
+                    StopCoroutine(fadeInCoroutine);
+                    cutsceneDialogHandler.ShowStill();
+                }
+                break;
+            case 12:
                 //Play the shock sound effect and the shocked background music to accompany it
                 if (FindObjectOfType<AudioManager>() != null)
                 {
@@ -63,12 +73,12 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.ChangeStill(1);
                 cutsceneDialogHandler.ShowNameBox();
                 break;
-            case 12:
+            case 13:
                 //Change the text to red and start forcefully skipping through text
                 cutsceneDialogHandler.SetTextColor(scaredTextColor);
                 cutsceneDialogHandler.SetForceSkip(true);
                 break;
-            case 23:
+            case 24:
                 //Stop the shocked music
                 if (FindObjectOfType<AudioManager>() != null)
                 {
@@ -80,7 +90,7 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.ResetTextColor();
                 cutsceneDialogHandler.SetForceSkip(false);
                 break;
-            case 27:
+            case 28:
                 //Play the cutscene music again from the beginning
                 if (FindObjectOfType<AudioManager>() != null)
                 {
@@ -90,14 +100,14 @@ public class StartingCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.ChangeSprite(2);
                 cutsceneDialogHandler.ShowSprite();
                 break;
-            case 29:
+            case 30:
                 cutsceneDialogHandler.ChangeSprite(3);
                 cutsceneDialogHandler.SpriteJump();
                 break;
-            case 32:
+            case 33:
                 cutsceneDialogHandler.ChangeSprite(0);
                 break;
-            case 35:
+            case 36:
                 cutsceneDialogHandler.ChangeSprite(1);
                 break;
         }

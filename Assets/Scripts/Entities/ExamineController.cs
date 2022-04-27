@@ -54,7 +54,7 @@ public class ExamineController : SelectableObject, IPointerEnterHandler, IPointe
 
     private void Update()
     {
-        if (!GameManager.instance.isCutsceneActive && !PlayerController.main.isMoving)
+        if (!GameManager.instance.isCutsceneActive && !GameManager.instance.isInventoryActive && !PlayerController.main.isMoving)
         {
             if (GameManager.instance.playerHasInventory)
             {

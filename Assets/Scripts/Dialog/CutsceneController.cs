@@ -104,11 +104,6 @@ public class CutsceneController : MonoBehaviour
 
     public IEnumerator AutoAdvance(float timeToReadText)
     {
-        //Give the player at least a half second to read text
-        if(timeToReadText < 0.5f)
-        {
-            timeToReadText = 0.5f;
-        }
         WaitForSeconds secondsForText = new WaitForSeconds(timeToReadText);
         yield return secondsForText;
         AdvanceText();

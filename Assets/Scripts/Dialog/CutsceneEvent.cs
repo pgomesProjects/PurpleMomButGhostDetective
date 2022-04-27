@@ -9,6 +9,9 @@ public abstract class CutsceneEvent : DialogEvent
     [Header("Cutscene Objects")]
     [SerializeField][Tooltip("The container that holds all cutscene UI.")]
     protected GameObject cutsceneUI;
+    [SerializeField]
+    [Tooltip("The container that holds all dialog visuals.")]
+    protected GameObject cutsceneVisuals;
     [SerializeField][Tooltip("The object that displays the sprite.")]
     protected Image dialogSprite;
     [SerializeField]
@@ -63,12 +66,30 @@ public abstract class CutsceneEvent : DialogEvent
 
     public void HideStill()
     {
-        stillSprite.SetActive(false);
+        stillSprite.GetComponent<CanvasGroup>().alpha = 0;
     }
 
     public void ShowStill()
     {
-        stillSprite.SetActive(true);
+        stillSprite.GetComponent<CanvasGroup>().alpha = 1;
+    }
+
+    public IEnumerator FadeInStill(float seconds)
+    {
+        float currentTimer = 0;
+
+        stillSprite.GetComponent<CanvasGroup>().alpha = 0;
+
+        while (currentTimer < seconds)
+        {
+            currentTimer += Time.deltaTime;
+
+            stillSprite.GetComponent<CanvasGroup>().alpha = Mathf.Clamp01(currentTimer / seconds);
+
+            yield return null;
+        }
+
+        stillSprite.GetComponent<CanvasGroup>().alpha = 1;
     }
 
     public void ChangeStill(int index)
@@ -78,6 +99,12 @@ public abstract class CutsceneEvent : DialogEvent
             stillSprite.GetComponent<Image>().sprite = stillImages[index];
         }
     }
+
+    public void SetVisualsOpacity(float alpha)
+    {
+        cutsceneVisuals.GetComponent<CanvasGroup>().alpha = alpha;
+    }
+
     public void ShowBlackScreen()
     {
         blackScreen.SetActive(true);

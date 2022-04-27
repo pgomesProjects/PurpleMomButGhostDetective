@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class UseItemController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -9,11 +10,17 @@ public class UseItemController : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private PlayerControlSystem playerControls;
     private bool isSelected = false;
     private bool isUsed = false;
+    private Light2D highlight;
 
     private void Awake()
     {
         playerControls = new PlayerControlSystem();
         playerControls.Player.UseItem.performed += _ => CheckUseItem();
+    }
+
+    private void Start()
+    {
+        highlight = transform.Find("Highlight").GetComponent<Light2D>();
     }
 
     private void OnEnable()
@@ -28,16 +35,26 @@ public class UseItemController : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isSelected = true;
+        if (InventoryController.main.isHidden && !isUsed)
+        {
+            isSelected = true;
+            highlight.gameObject.SetActive(true);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isSelected = false;
+        if (InventoryController.main.isHidden && !isUsed)
+        {
+            isSelected = false;
+            highlight.gameObject.SetActive(false);
+        }
     }
 
     private void CheckUseItem()
     {
+        highlight.gameObject.SetActive(false);
+
         //If the used volume is hovered over, the right piece is selected, and the used volume is not used, use the item
         if (InventoryController.main.activeInventoryID == requiredID && isSelected && !isUsed)
         {
