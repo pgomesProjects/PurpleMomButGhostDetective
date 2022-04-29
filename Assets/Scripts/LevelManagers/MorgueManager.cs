@@ -19,21 +19,28 @@ public class MorgueManager : MonoBehaviour
     {
         //Singleton-ify
         if (main == null) { main = this; } else { Destroy(this); }
+
+        //Start the player without their inventory and having not viewed any of the tutorials
+        if (GameManager.instance != null)
+        {
+            GameData.playerReference = Instantiate(GameManager.instance.playerPrefab, spawnPoint.transform);
+
+            var vcam = FindObjectOfType<CinemachineVirtualCamera>();
+            vcam.Follow = GameData.playerReference.transform;
+
+            //Make sure the player does not their inventory and have not seen the tutorials
+            GameManager.instance.playerHasInventory = false;
+            GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY] = false;
+
+            //Clear inventory and history log
+            GameData.inventory = new List<Item>();
+            DialogController.main.ClearLog();
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //Start the player without their inventory and having not viewed any of the tutorials
-        if(GameManager.instance != null)
-        {
-            GameManager.instance.player = Instantiate(GameManager.instance.player, spawnPoint.transform);
-            var vcam = FindObjectOfType<CinemachineVirtualCamera>();
-            vcam.Follow = GameManager.instance.player.transform;
-            GameManager.instance.playerHasInventory = false;
-            GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY] = false;
-        }
-
         //Give the dialog event to the cutscene controller and start the cutscene immediately
         CutsceneController.main.dialogEvent = startingCutscene;
         CutsceneController.main.TriggerDialogEvent();

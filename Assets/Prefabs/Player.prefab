@@ -165,7 +165,6 @@ GameObject:
   - component: {fileID: 277413033349522585}
   - component: {fileID: 277413033349522586}
   - component: {fileID: 277413033349522591}
-  - component: {fileID: 277413033349522584}
   - component: {fileID: 3286034505807037530}
   - component: {fileID: 277413034082833927}
   - component: {fileID: 277413034082833926}
@@ -258,36 +257,6 @@ MonoBehaviour:
   speed: 5
   inventory: []
   charAnimator: {fileID: 3286034505807037530}
---- !u!114 &277413033349522584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277413033349522587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 9f103ceaf1e41464daf6710cf9ab516c, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!95 &3286034505807037530
 Animator:
   serializedVersion: 3

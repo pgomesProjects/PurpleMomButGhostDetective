@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 3;
-    [SerializeField] private List<Item> inventory;
-    
 
     private PlayerControlSystem playerControls;
     private Vector3 movement;
@@ -161,7 +159,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public List<Item> GetInventory() { return inventory; }
+    public List<Item> GetInventory() { return GameData.inventory; }
 
     public void AddToInventory(Item itemData)
     {
@@ -169,7 +167,7 @@ public class PlayerController : MonoBehaviour
         if(itemData.name != "Notebook" && GameManager.instance.playerHasInventory)
         {
             bool duplicateItem = false;
-            foreach (var i in inventory)
+            foreach (var i in GameData.inventory)
             {
                 //If the player already has the item in their inventory, add to their quantity
                 if (i.ID == itemData.ID)
@@ -183,7 +181,7 @@ public class PlayerController : MonoBehaviour
             //If the current object is not a duplicate of an existing one, add a new item to the inventory
             if (!duplicateItem)
             {
-                inventory.Add(itemData);
+                GameData.inventory.Add(itemData);
             }
 
             //Show the pickup text UI
@@ -203,7 +201,7 @@ public class PlayerController : MonoBehaviour
     {
         bool deleteItem = true;
         int counter = 0;
-        foreach (var i in inventory)
+        foreach (var i in GameData.inventory)
         {
             //If the item trying to be removed has been found, stop looking for it with the break statement
             if (i.ID == itemID)
@@ -223,7 +221,7 @@ public class PlayerController : MonoBehaviour
         //If the item needs to be deleted from the inventory, remove it from the inventory list
         if (deleteItem)
         {
-            inventory.RemoveAt(counter);
+            GameData.inventory.RemoveAt(counter);
         }
     }
 

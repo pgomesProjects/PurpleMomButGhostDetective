@@ -38,7 +38,11 @@ public class InventoryController : MonoBehaviour
         isInventoryActive = false;
         activeInventoryID = -1;
         activeSiblingIndex = -1;
-        player = FindObjectOfType<PlayerController>();
+
+        if (GameData.playerReference == null)
+            Debug.LogError("ERROR: Player Object Does Not Exist!");
+        else
+            player = GameData.playerReference.GetComponent<PlayerController>();
     }
 
     private void OnEnable()

@@ -37,7 +37,7 @@ public class PauseController : MonoBehaviour
     public void PauseToggle()
     {
         //If the inventory is not active and a cutscene is not active, allow the player to pause
-        if (!GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
+        if (!GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive && !DialogController.main.historyLogActive)
         {
             isPaused = !isPaused;
             pauseUI.SetActive(isPaused);
@@ -63,6 +63,11 @@ public class PauseController : MonoBehaviour
                     FindObjectOfType<AudioManager>().Resume("Morgue");
                 }
             }
+        }
+        //If the history menu is active, hide it
+        else if (DialogController.main.historyLogActive)
+        {
+            DialogController.main.HideHistoryLog();
         }
     }
 

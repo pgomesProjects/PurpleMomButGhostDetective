@@ -5,25 +5,19 @@ using TMPro;
 
 public class DialogController : MonoBehaviour
 {
-    private List<string> historyLog;
-
     [SerializeField] private GameObject dialogObject;
     [SerializeField] private GameObject historyObject;
     [SerializeField] private TextMeshProUGUI logText;
 
     public static DialogController main;
 
-    [HideInInspector]
-    public bool isDialogShown;
-    [HideInInspector]
-    public bool historyLogActive;
-    [HideInInspector]
-    public bool isControlButtonHovered;
+    internal bool isDialogShown;
+    internal bool historyLogActive;
+    internal bool isControlButtonHovered;
 
     private void Awake()
     {
         main = this;
-        historyLog = new List<string>();
     }
 
     private void Start()
@@ -36,20 +30,20 @@ public class DialogController : MonoBehaviour
     public void ClearLog()
     {
         //Wipe out the history log
-        historyLog.Clear();
+        GameData.historyLog.Clear();
     }
 
     public void AddToLog(string message)
     {
         //Add a line to the history log
-        historyLog.Add(message);
+        GameData.historyLog.Add(message);
     }
 
     private void DisplayLog()
     {
         //Display all of the lines that are in the history log
         logText.text = "";
-        foreach(var i in historyLog)
+        foreach(var i in GameData.historyLog)
         {
             logText.text += i;
         }

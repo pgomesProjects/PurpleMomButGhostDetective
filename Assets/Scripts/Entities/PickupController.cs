@@ -19,7 +19,12 @@ public class PickupController : SelectableObject, IPointerEnterHandler, IPointer
     void Start()
     {
         highlight = transform.Find("Highlight").GetComponent<Light2D>();
-        player = FindObjectOfType<PlayerController>();
+
+        if (GameData.playerReference == null)
+            Debug.LogError("ERROR: Player Object Does Not Exist!");
+        else
+            player = GameData.playerReference.GetComponent<PlayerController>();
+
         itemData = new Item(ID, itemName, 1, GetComponent<SpriteRenderer>(), combineItemIDs);
     }
 

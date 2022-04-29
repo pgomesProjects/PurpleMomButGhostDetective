@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     internal bool isInventoryActive;
     internal bool playerHasInventory;
     internal bool playerSelectingItem;
-    public GameObject player;
+    public GameObject playerPrefab;
 
     internal enum Tutorial { USEINVENTORY };
     public bool[] tutorialsShown;

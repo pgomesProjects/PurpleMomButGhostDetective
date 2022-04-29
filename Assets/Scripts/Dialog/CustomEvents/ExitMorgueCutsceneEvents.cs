@@ -39,6 +39,7 @@ public class ExitMorgueCutsceneEvents : CustomEvent
         {
             FindObjectOfType<AudioManager>().Stop("Morgue");
         }
+
         //Use the level fader to fade into the next scene
         LevelFader.instance.FadeToLevel(levelName);
     }
