@@ -17,7 +17,7 @@ public class ExamineController : SelectableObject, IPointerEnterHandler, IPointe
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!GameManager.instance.isCutsceneActive)
+        if (!GameManager.instance.isCutsceneActive && !KeypadController.AnyKeypadActive())
         {
             if (GameManager.instance.playerHasInventory)
             {

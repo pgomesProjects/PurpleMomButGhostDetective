@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //If the player can move, their inventory isn't active, and there's no active cutscene, check for movement input
-        if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
+        if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive && !KeypadController.AnyKeypadActive())
             GetPlayerMovementInput();
         else
             isMoving = false;
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //The actual movement is called here because it performs nicer via FixedUpdate
-        if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive)
+        if (canMove && !GameManager.instance.isInventoryActive && !GameManager.instance.isCutsceneActive && !KeypadController.AnyKeypadActive())
         {
             MovePlayer();
         }
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
     private void CheckPlayerAnimation()
     {
         //Animate the sprite when the game is not paused
-        if(PauseController.main != null && !PauseController.main.isPaused && !GameManager.instance.isInventoryActive)
+        if(PauseController.main != null && !PauseController.main.isPaused && !GameManager.instance.isInventoryActive && !KeypadController.AnyKeypadActive())
         {
             //If the player is not moving and not in a cutscene, set the multiplier to 1
             if (!GameManager.instance.isCutsceneActive)

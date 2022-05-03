@@ -44,14 +44,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogLines:
-  - This is test dialog for Clementine.
+  - '"This is test dialog for Clementine."'
   - This is another test thing.
   - This cutscene is now over. Goodbye.
+  hasSeenLines: []
   messageText: {fileID: 0}
   continueObject: {fileID: 0}
   cutsceneUI: {fileID: 0}
+  cutsceneVisuals: {fileID: 0}
   dialogSprite: {fileID: 0}
+  stillSprite: {fileID: 0}
   nameBox: {fileID: 0}
   nameText: {fileID: 0}
+  blackScreen: {fileID: 0}
   spriteImages:
   - {fileID: 21300000, guid: 291d8e7d5ddd28d4c96151f28dc67f87, type: 3}
+  stillImages: []
+  canAutoAdvance: 0
+  forceSkip: 0
+  textCompleted: 0
+  skipTextMultiplier: 1.5

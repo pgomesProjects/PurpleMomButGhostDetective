@@ -19,7 +19,7 @@ public class DoorController : SelectableObject, IPointerEnterHandler, IPointerEx
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!GameManager.instance.isCutsceneActive && isHighlighted)
+        if (!GameManager.instance.isCutsceneActive && isHighlighted && !KeypadController.AnyKeypadActive())
         {
             //Play click SFX
             if (FindObjectOfType<AudioManager>() != null)

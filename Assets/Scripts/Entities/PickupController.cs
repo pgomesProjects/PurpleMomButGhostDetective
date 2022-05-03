@@ -30,7 +30,7 @@ public class PickupController : SelectableObject, IPointerEnterHandler, IPointer
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!GameManager.instance.isCutsceneActive)
+        if (!GameManager.instance.isCutsceneActive && !KeypadController.AnyKeypadActive())
         {
             if (GameManager.instance.playerHasInventory || itemData.name == "Notebook")
             {

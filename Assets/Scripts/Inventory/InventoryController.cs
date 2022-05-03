@@ -58,7 +58,7 @@ public class InventoryController : MonoBehaviour
     private void ToggleInventory()
     {
         //If there's no cutscene and the player has the inventory, toggle the inventory visibility
-        if (GameManager.instance.playerHasInventory && !GameManager.instance.isCutsceneActive)
+        if (GameManager.instance.playerHasInventory && !GameManager.instance.isCutsceneActive && !KeypadController.AnyKeypadActive())
         {
             isInventoryActive = !isInventoryActive;
             inventoryUI.SetActive(isInventoryActive);

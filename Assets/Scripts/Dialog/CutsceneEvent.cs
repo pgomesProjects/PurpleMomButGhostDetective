@@ -114,7 +114,12 @@ public abstract class CutsceneEvent : DialogEvent
     {
         blackScreen.SetActive(false);
     }
-    
+
+    public void NormalizeText()
+    {
+        messageText.fontStyle = TMPro.FontStyles.Normal;
+    }
+
     public void ItalicizeText()
     {
         messageText.fontStyle = TMPro.FontStyles.Italic;

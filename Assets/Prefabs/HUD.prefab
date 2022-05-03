@@ -902,7 +902,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 98
   m_TargetDisplay: 0
 --- !u!114 &4782093066052597083
 MonoBehaviour:
@@ -1022,9 +1022,6 @@ MonoBehaviour:
   dialogObject: {fileID: 4782093066837947540}
   historyObject: {fileID: 4782093067354971103}
   logText: {fileID: 4782093067067494037}
-  isDialogShown: 0
-  historyLogActive: 0
-  isControlButtonHovered: 0
 --- !u!114 &4782093066052597058
 MonoBehaviour:
   m_ObjectHideFlags: 0
