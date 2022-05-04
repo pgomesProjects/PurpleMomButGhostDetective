@@ -26,9 +26,6 @@ public class ExitMorgueCutsceneEvents : CustomEvent
                 cutsceneDialogHandler.HideSprite();
                 cutsceneDialogHandler.ShowBlackScreen();
                 break;
-            case 10:
-                cutsceneDialogHandler.HideNameBox();
-                break;
         }
     }
 

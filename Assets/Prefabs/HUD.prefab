@@ -6569,7 +6569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3048624706339024200, guid: 0879abf4a6a9ed74497720dde1a2b0be, type: 3}
       propertyPath: m_SortingOrder
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0879abf4a6a9ed74497720dde1a2b0be, type: 3}
@@ -6715,10 +6715,6 @@ PrefabInstance:
     - target: {fileID: 2305355485844374412, guid: 0879abf4a6a9ed74497720dde1a2b0be, type: 3}
       propertyPath: gridHoverColor.r
       value: 0.2944331
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048624706339024200, guid: 0879abf4a6a9ed74497720dde1a2b0be, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0879abf4a6a9ed74497720dde1a2b0be, type: 3}

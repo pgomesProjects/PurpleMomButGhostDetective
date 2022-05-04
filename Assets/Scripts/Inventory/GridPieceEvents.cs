@@ -20,6 +20,7 @@ public class GridPieceEvents : MonoBehaviour,
     private RectTransform itemImageTransform;
 
     private int inventoryImageID = -1;
+    internal bool showTooltip;
 
     private void Start()
     {
@@ -44,6 +45,16 @@ public class GridPieceEvents : MonoBehaviour,
                 gridImage.color = gridColor;
             else
                 gridImage.color = new Color(0, 0, 0, 0);
+
+            gridItemImage.GetComponentInChildren<CanvasGroup>().alpha = 0;
+        }
+        else
+        {
+            //If there's an image, show their tooltip when hovering
+            if (showTooltip)
+                gridItemImage.GetComponentInChildren<CanvasGroup>().alpha = 1;
+            else
+                gridItemImage.GetComponentInChildren<CanvasGroup>().alpha = 0;
         }
     }
 
@@ -55,11 +66,25 @@ public class GridPieceEvents : MonoBehaviour,
     public void OnPointerEnter(PointerEventData eventData)
     {
         gridImage.color = gridHoverColor;
+        //If there's an image, show their tooltip
+        if (gridItemImage.color.a != 0)
+            showTooltip = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         gridImage.color = gridColor;
+        //If there's an image, hide their tooltip
+        if (gridItemImage.color.a != 0)
+            showTooltip = false;
+    }
+
+    public void ForceUnhover()
+    {
+        gridImage.color = gridColor;
+        //If there's an image, hide their tooltip
+        if (gridItemImage.color.a != 0)
+            showTooltip = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)

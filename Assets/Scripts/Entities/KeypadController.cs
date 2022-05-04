@@ -34,6 +34,10 @@ public class KeypadController : MonoBehaviour
     {
         if (inputAllowed)
         {
+            //Keypad press SFX
+            if (FindObjectOfType<AudioManager>() != null)
+                FindObjectOfType<AudioManager>().Play("KeypadPress", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
             keycodeText.text += number.ToString();
             CheckForValidCode();
         }
@@ -67,6 +71,10 @@ public class KeypadController : MonoBehaviour
         backButton.SetActive(false);
         inputAllowed = false;
 
+        //Denied SFX
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("AccessDenied", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
         yield return new WaitForSeconds(0.5f);
 
         //Clear text and change back to normal color
@@ -82,6 +90,10 @@ public class KeypadController : MonoBehaviour
         keycodeText.color = accessGranted;
         backButton.SetActive(false);
         inputAllowed = false;
+
+        //Granted SFX
+        if (FindObjectOfType<AudioManager>() != null)
+            FindObjectOfType<AudioManager>().Play("AccessGranted", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
 
         yield return new WaitForSeconds(0.5f);
 
@@ -100,6 +112,9 @@ public class KeypadController : MonoBehaviour
     {
         if (inputAllowed)
         {
+            //Keypad press SFX
+            if (FindObjectOfType<AudioManager>() != null)
+                FindObjectOfType<AudioManager>().Play("KeypadPress", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
             keycodeText.text = string.Empty;
         }
     }
@@ -110,6 +125,10 @@ public class KeypadController : MonoBehaviour
         {
             if (keycodeText.text.Length > 0)
             {
+                //Keypad press SFX
+                if (FindObjectOfType<AudioManager>() != null)
+                    FindObjectOfType<AudioManager>().Play("KeypadPress", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
                 //Remove last character of string
                 keycodeText.text = keycodeText.text.Substring(0, keycodeText.text.Length - 1);
             }
@@ -120,8 +139,12 @@ public class KeypadController : MonoBehaviour
     {
         if (inputAllowed)
         {
+            //Mouse click SFX
+            if (FindObjectOfType<AudioManager>() != null)
+                FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+
             //Clear the keypad and hide the UI
-            Clear();
+            keycodeText.text = string.Empty;
             keypadObject.ShowKeypadUI(false);
         }
     }

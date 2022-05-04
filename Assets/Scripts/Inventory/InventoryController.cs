@@ -61,6 +61,18 @@ public class InventoryController : MonoBehaviour
         if (GameManager.instance.playerHasInventory && !GameManager.instance.isCutsceneActive && !KeypadController.AnyKeypadActive())
         {
             isInventoryActive = !isInventoryActive;
+
+
+            if (!isInventoryActive)
+            {
+                //Hide any active tooltips if closing inventory
+                foreach (var i in FindObjectsOfType<GridPieceEvents>())
+                {
+                    //Make sure nothing is hovered
+                    i.ForceUnhover();
+                }
+            }
+
             inventoryUI.SetActive(isInventoryActive);
             GameManager.instance.isInventoryActive = isInventoryActive;
 
@@ -90,6 +102,7 @@ public class InventoryController : MonoBehaviour
 
             imageGrid[counter].sprite = i.itemImage;
             imageGrid[counter].color = i.imageColor;
+            imageGrid[counter].GetComponentInChildren<TextMeshProUGUI>().text = i.description;
             imageGrid[counter].gameObject.GetComponentInParent<GridPieceEvents>().SetInventoryID(i.ID);
             counter++;
         }

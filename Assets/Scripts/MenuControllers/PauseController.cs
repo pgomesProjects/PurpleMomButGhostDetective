@@ -51,7 +51,7 @@ public class PauseController : MonoBehaviour
                 //Pause the in-game music
                 if (FindObjectOfType<AudioManager>() != null)
                 {
-                    FindObjectOfType<AudioManager>().Pause("Morgue");
+                    FindObjectOfType<AudioManager>().Pause(GameData.currentLevelName);
                 }
             }
             //Resume
@@ -60,7 +60,7 @@ public class PauseController : MonoBehaviour
                 Time.timeScale = 1.0f;
                 if (FindObjectOfType<AudioManager>() != null)
                 {
-                    FindObjectOfType<AudioManager>().Resume("Morgue");
+                    FindObjectOfType<AudioManager>().Resume(GameData.currentLevelName);
                 }
             }
         }
@@ -77,7 +77,7 @@ public class PauseController : MonoBehaviour
         if (FindObjectOfType<AudioManager>() != null)
         {
             FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
-            FindObjectOfType<AudioManager>().Resume("Morgue");
+            FindObjectOfType<AudioManager>().Resume(GameData.currentLevelName);
         }
 
         //Hide the pause menu and start time again
@@ -94,7 +94,7 @@ public class PauseController : MonoBehaviour
         if (FindObjectOfType<AudioManager>() != null)
         {
             FindObjectOfType<AudioManager>().Play("MouseClick", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
-            FindObjectOfType<AudioManager>().Stop("Morgue");
+            FindObjectOfType<AudioManager>().Stop(GameData.currentLevelName);
         }
 
         string levelMain = "Titlescreen";

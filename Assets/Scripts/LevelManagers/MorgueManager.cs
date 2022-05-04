@@ -9,7 +9,6 @@ public class MorgueManager : MonoBehaviour
     [SerializeField] private DialogEvent startingCutscene;
     [SerializeField] private GameObject spawnPoint;
 
-    internal bool readyForNextLevel;
     public enum Interaction { VIEWBODY, VIEWDESK, VIEWAUTOPSY };
 
     private bool [] hasInteracted = new bool[] { false, false, false };
@@ -32,9 +31,8 @@ public class MorgueManager : MonoBehaviour
             GameManager.instance.playerHasInventory = false;
             GameManager.instance.tutorialsShown[(int)GameManager.Tutorial.USEINVENTORY] = false;
 
-            //Clear inventory and history log
-            GameData.inventory = new List<Item>();
-            DialogController.main.ClearLog();
+            //Reset data for new game
+            GameData.NewGame();
         }
     }
 
@@ -42,6 +40,8 @@ public class MorgueManager : MonoBehaviour
     void Start()
     {
         //Give the dialog event to the cutscene controller and start the cutscene immediately
+        GameData.currentLevelName = "Morgue";
+        GameData.readyForNextLevel = false;
         CutsceneController.main.dialogEvent = startingCutscene;
         CutsceneController.main.TriggerDialogEvent();
     }
@@ -63,7 +63,7 @@ public class MorgueManager : MonoBehaviour
         }
 
         //If the player has interacted with everything, the player is ready to leave the level
-        readyForNextLevel = true;
+        GameData.readyForNextLevel = true;
     }
 
 }

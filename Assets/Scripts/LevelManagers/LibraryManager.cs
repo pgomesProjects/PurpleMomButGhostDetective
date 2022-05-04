@@ -31,7 +31,10 @@ public class LibraryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameData.currentLevelName = "Library";
+
         //Give the dialog event to the cutscene controller and start the cutscene immediately
+        GameData.readyForNextLevel = true;
         CutsceneController.main.dialogEvent = startingCutscene;
         CutsceneController.main.TriggerDialogEvent();
     }

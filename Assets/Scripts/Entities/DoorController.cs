@@ -29,7 +29,7 @@ public class DoorController : SelectableObject, IPointerEnterHandler, IPointerEx
             if (isUnlocked)
             {
                 //If the level is ready to advance, play the exit cutscene
-                if (MorgueManager.main.readyForNextLevel)
+                if (GameData.readyForNextLevel)
                 {
                     StartCoroutine(StartCutsceneDelay(0.1f));
                 }
@@ -77,6 +77,10 @@ public class DoorController : SelectableObject, IPointerEnterHandler, IPointerEx
             if(FindObjectOfType<AudioManager>() != null)
                 FindObjectOfType<AudioManager>().Play("DoorUnlockSFX", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
             isUnlocked = true;
+
+            //If there's a cutscene on this door, get rid of it
+            if(GetComponent<ExamineController>() != null)
+                Destroy(GetComponent<ExamineController>());
         }
     }
 

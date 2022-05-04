@@ -9,6 +9,7 @@ public class PickupController : SelectableObject, IPointerEnterHandler, IPointer
     [Header("Item Data")]
     public int ID = -1;
     public string itemName = "Test Item";
+    public string itemDescription = "Example Text";
     public int[] combineItemIDs;
 
     private Item itemData;
@@ -25,7 +26,7 @@ public class PickupController : SelectableObject, IPointerEnterHandler, IPointer
         else
             player = GameData.playerReference.GetComponent<PlayerController>();
 
-        itemData = new Item(ID, itemName, 1, GetComponent<SpriteRenderer>(), combineItemIDs);
+        itemData = new Item(ID, itemName, itemDescription, 1, GetComponent<SpriteRenderer>(), combineItemIDs);
     }
 
     public void OnPointerClick(PointerEventData eventData)

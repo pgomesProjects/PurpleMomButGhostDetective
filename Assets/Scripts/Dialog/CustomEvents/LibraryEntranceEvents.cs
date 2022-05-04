@@ -19,7 +19,7 @@ public class LibraryEntranceEvents : CustomEvent
             case 0:
                 if (FindObjectOfType<AudioManager>() != null)
                 {
-                    FindObjectOfType<AudioManager>().Play("CutsceneBGM", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
+                    FindObjectOfType<AudioManager>().Play("LibraryCutsceneBGM", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
                 }
                 cutsceneDialogHandler.HideSprite();
                 cutsceneDialogHandler.ShowBlackScreen();
@@ -33,11 +33,22 @@ public class LibraryEntranceEvents : CustomEvent
             case 4:
                 cutsceneDialogHandler.SetNameBoxText("Constable");
                 break;
+            case 6:
+                if (FindObjectOfType<AudioManager>() != null)
+                    FindObjectOfType<AudioManager>().Play("SnoringSFX", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+                break;
             case 7:
                 cutsceneDialogHandler.SetNameBoxText("Clementine");
                 break;
             case 10:
                 cutsceneDialogHandler.HideNameBox();
+                break;
+            case 11:
+                if (FindObjectOfType<AudioManager>() != null)
+                {
+                    FindObjectOfType<AudioManager>().Stop("SnoringSFX");
+                    FindObjectOfType<AudioManager>().Play("BlanketSFX", PlayerPrefs.GetFloat("SFXVolume", 0.5f));
+                }
                 break;
             case 12:
                 cutsceneDialogHandler.ItalicizeText();
@@ -58,8 +69,8 @@ public class LibraryEntranceEvents : CustomEvent
         //Stop the cutscene music and play the background music that will be used in-game
         if (FindObjectOfType<AudioManager>() != null)
         {
-            FindObjectOfType<AudioManager>().Stop("CutsceneBGM");
-            FindObjectOfType<AudioManager>().Play("Morgue", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
+            FindObjectOfType<AudioManager>().Stop("LibraryCutsceneBGM");
+            FindObjectOfType<AudioManager>().Play("Library", PlayerPrefs.GetFloat("BGMVolume", 0.5f));
         }
     }
 }

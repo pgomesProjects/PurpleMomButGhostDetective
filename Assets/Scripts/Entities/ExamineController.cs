@@ -8,6 +8,8 @@ public class ExamineController : SelectableObject, IPointerEnterHandler, IPointe
 {
     private Light2D highlight;
     [SerializeField] private DialogEvent examineCutscene;
+    public bool destroySelf;
+    public bool useHighlight = true;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,10 @@ public class ExamineController : SelectableObject, IPointerEnterHandler, IPointe
             CutsceneController.main.dialogEvent = examineCutscene;
             CutsceneController.main.TriggerDialogEvent();
         }
+
+        //Destroy this script if marked to do so
+        if (destroySelf)
+            Destroy(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -54,7 +60,7 @@ public class ExamineController : SelectableObject, IPointerEnterHandler, IPointe
 
     private void Update()
     {
-        if (!GameManager.instance.isCutsceneActive && !GameManager.instance.isInventoryActive && !PlayerController.main.isMoving)
+        if (!GameManager.instance.isCutsceneActive && !GameManager.instance.isInventoryActive && !PlayerController.main.isMoving && useHighlight)
         {
             if (GameManager.instance.playerHasInventory)
             {
